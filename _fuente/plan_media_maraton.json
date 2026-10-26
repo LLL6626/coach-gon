@@ -1,0 +1,4837 @@
+{
+ "meta": {
+  "title": "Plan Media Maratón ZGZ",
+  "objective": "Terminar la carrera, sin morir, al mejor ritmo posible.",
+  "race": {
+   "name": "Media Maratón de Zaragoza",
+   "date": "2027-03-14",
+   "distance_km": 21.1,
+   "target_pace": [
+    "5:05",
+    "5:15"
+   ],
+   "target_time": [
+    "1:47",
+    "1:51"
+   ]
+  },
+  "start": "2026-10-26",
+  "weeks": 20,
+  "default_plan": "3d",
+  "notes": [
+   "Ritmos orientativos, estimados a partir de 10 km a 5:40/km.",
+   "Dejar al menos 1 día sin correr entre sesiones cuando sea posible."
+  ]
+ },
+ "zones": {
+  "rec": {
+   "name": "Recuperación muy suave",
+   "pace": [
+    "6:15",
+    "6:45"
+   ],
+   "rpe": [
+    3,
+    4
+   ],
+   "color": "#7fb3d5"
+  },
+  "suave": {
+   "name": "Rodaje suave",
+   "pace": [
+    "5:55",
+    "6:25"
+   ],
+   "rpe": [
+    4,
+    5
+   ],
+   "color": "#76c7a4"
+  },
+  "largo": {
+   "name": "Tirada larga aeróbica",
+   "pace": [
+    "5:40",
+    "6:10"
+   ],
+   "rpe": [
+    5,
+    6
+   ],
+   "color": "#a8d36b"
+  },
+  "controlado": {
+   "name": "Ritmo controlado",
+   "pace": [
+    "5:20",
+    "5:40"
+   ],
+   "rpe": [
+    6,
+    6
+   ],
+   "color": "#f2c94c"
+  },
+  "mm": {
+   "name": "Ritmo objetivo media maratón",
+   "pace": [
+    "5:05",
+    "5:15"
+   ],
+   "rpe": [
+    6,
+    7
+   ],
+   "color": "#f2994a"
+  },
+  "umbral": {
+   "name": "Umbral / tempo",
+   "pace": [
+    "4:50",
+    "5:05"
+   ],
+   "rpe": [
+    7,
+    7
+   ],
+   "color": "#eb5757"
+  },
+  "intervalos": {
+   "name": "Intervalos",
+   "pace": [
+    "4:30",
+    "4:45"
+   ],
+   "rpe": [
+    7,
+    8
+   ],
+   "color": "#bb6bd9"
+  }
+ },
+ "rpe_scale": [
+  {
+   "range": [
+    3,
+    4
+   ],
+   "label": "Fácil"
+  },
+  {
+   "range": [
+    5,
+    6
+   ],
+   "label": "Moderado"
+  },
+  {
+   "range": [
+    7,
+    7
+   ],
+   "label": "Exigente"
+  },
+  {
+   "range": [
+    8,
+    8
+   ],
+   "label": "Muy exigente pero controlado"
+  },
+  {
+   "range": [
+    9,
+    10
+   ],
+   "label": "Evitar esfuerzos máximos"
+  }
+ ],
+ "phases": [
+  {
+   "month": 1,
+   "name": "Adaptación y base aeróbica",
+   "weeks": [
+    1,
+    4
+   ]
+  },
+  {
+   "month": 2,
+   "name": "Desarrollo aeróbico",
+   "weeks": [
+    5,
+    8
+   ]
+  },
+  {
+   "month": 3,
+   "name": "Resistencia específica",
+   "weeks": [
+    9,
+    12
+   ]
+  },
+  {
+   "month": 4,
+   "name": "Pico específico",
+   "weeks": [
+    13,
+    16
+   ]
+  },
+  {
+   "month": 5,
+   "name": "Afinamiento y carrera",
+   "weeks": [
+    17,
+    20
+   ]
+  }
+ ],
+ "weeks": [
+  {
+   "n": 1,
+   "month": 1,
+   "start": "2026-10-26",
+   "end": "2026-11-01",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje+progresivos",
+      "title": "Rodaje + progresivos",
+      "text": "35–40 min suave (5:55–6:25/km), RPE 4–5. Al final: 4×20 s progresivos (4:10–4:25/km), recuperando 60 s andando/trotando.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          35,
+          40
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": [
+          "4:10",
+          "4:25"
+         ],
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "andando/trotando"
+        }
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 40,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "10 km cómodo (5:40–6:10/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 10,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "fartlek",
+      "title": "Fartlek",
+      "text": "10 min suaves + 6×(2 min a 4:50–5:00/km, RPE 7 / 2 min suave a 6:10–6:40/km, RPE 3–4) + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 6,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:50",
+          "5:00"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:10",
+          "6:40"
+         ],
+         "rpe": [
+          3,
+          4
+         ]
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "10 km cómodo (5:40–6:10/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 10,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 2,
+   "month": 1,
+   "start": "2026-11-02",
+   "end": "2026-11-08",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "fartlek",
+      "title": "Fartlek",
+      "text": "10 min suaves + 6×(2 min a 4:50–5:00/km, RPE 7 / 2 min suave a 6:10–6:40/km, RPE 3–4) + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 6,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:50",
+          "5:00"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:10",
+          "6:40"
+         ],
+         "rpe": [
+          3,
+          4
+         ]
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40–45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          40,
+          45
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:40–6:10/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo fraccionado",
+      "title": "Tempo fraccionado",
+      "text": "12 min suaves + 3×6 min a 4:55–5:05/km, RPE 6–7, 2 min trote entre bloques + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 6,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:55",
+          "5:05"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:40–6:10/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 3,
+   "month": 1,
+   "start": "2026-11-09",
+   "end": "2026-11-15",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo fraccionado",
+      "title": "Tempo fraccionado",
+      "text": "12 min suaves + 3×6 min a 4:55–5:05/km, RPE 6–7, con 2 min de trote suave + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 6,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:55",
+          "5:05"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos opcionales.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 40,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "andando/trotando"
+        },
+        "optional": true
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "13 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 13,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "fartlek",
+      "title": "Fartlek",
+      "text": "12 min suaves + 5×(3 min a 4:50–5:00/km, RPE 7 / 2 min suaves) + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 5,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:50",
+          "5:00"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "suave",
+         "pace": [
+          "5:55",
+          "6:25"
+         ],
+         "rpe": [
+          4,
+          5
+         ]
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "13 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 13,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 4,
+   "month": 1,
+   "start": "2026-11-16",
+   "end": "2026-11-22",
+   "tag": "descarga",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "30–35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          30,
+          35
+         ],
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Muy suave",
+      "text": "30 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 30,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "9–10 km cómodo y relajado (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          9,
+          10
+         ],
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "30–35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          30,
+          35
+         ],
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "9–10 km cómodo (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          9,
+          10
+         ],
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 5,
+   "month": 2,
+   "start": "2026-11-23",
+   "end": "2026-11-29",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos",
+      "text": "12 min suaves + 5×800 m a 4:35–4:45/km, RPE 7–8, con 2 min de trote entre repeticiones + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 5,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 800,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40–45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          40,
+          45
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "14 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos",
+      "text": "12 min suaves + 5×800 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 5,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 800,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "14 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 6,
+   "month": 2,
+   "start": "2026-11-30",
+   "end": "2026-12-06",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "cuestas",
+      "title": "Cuestas",
+      "text": "12 min suaves + 8×45 s cuesta arriba a RPE 7–8 (ritmo por esfuerzo, técnica estable), recuperación bajando al trote/andando 90–120 s + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 8,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 45,
+          "unit": "s"
+         },
+         "zone": "intervalos",
+         "pace": null,
+         "rpe": [
+          7,
+          8
+         ],
+         "note": "cuesta arriba, ritmo por esfuerzo, técnica estable"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": [
+           90,
+           120
+          ],
+          "unit": "s"
+         },
+         "zone": "rec",
+         "pace": null,
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "bajando al trote/andando"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 45,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "15 km: primeros 12 km a 5:40–6:10/km (RPE 5), últimos 3 km a 5:20–5:35/km (RPE 6).",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 3,
+         "unit": "km"
+        },
+        "zone": "controlado",
+        "pace": [
+         "5:20",
+         "5:35"
+        ],
+        "rpe": [
+         6,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "cuestas",
+      "title": "Cuestas",
+      "text": "12 min suaves + 8×45 s cuesta arriba a RPE 7–8; bajar al trote/andar 90–120 s + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 8,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 45,
+          "unit": "s"
+         },
+         "zone": "intervalos",
+         "pace": null,
+         "rpe": [
+          7,
+          8
+         ],
+         "note": "cuesta arriba, ritmo por esfuerzo, técnica estable"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": [
+           90,
+           120
+          ],
+          "unit": "s"
+         },
+         "zone": "rec",
+         "pace": null,
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "bajando al trote/andando"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "15 km: 12 km a 5:40–6:10/km + 3 km a 5:20–5:35/km, RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 3,
+         "unit": "km"
+        },
+        "zone": "controlado",
+        "pace": [
+         "5:20",
+         "5:35"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 7,
+   "month": 2,
+   "start": "2026-12-07",
+   "end": "2026-12-13",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo",
+      "title": "Tempo",
+      "text": "12 min suaves + 20 min a 4:55–5:05/km, RPE 7 + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 20,
+         "unit": "min"
+        },
+        "zone": "umbral",
+        "pace": [
+         "4:55",
+         "5:05"
+        ],
+        "rpe": [
+         7,
+         7
+        ]
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 40,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "andando/trotando"
+        }
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo",
+      "title": "Tempo",
+      "text": "12 min suaves + 20 min a 4:55–5:05/km, RPE 7 + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 20,
+         "unit": "min"
+        },
+        "zone": "umbral",
+        "pace": [
+         "4:55",
+         "5:05"
+        ],
+        "rpe": [
+         7,
+         7
+        ]
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 8,
+   "month": 2,
+   "start": "2026-12-14",
+   "end": "2026-12-20",
+   "tag": "descarga",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "30–35 min suave (6:00–6:30/km), RPE 4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          30,
+          35
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "6:00",
+         "6:30"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 9,
+   "month": 3,
+   "start": "2026-12-21",
+   "end": "2026-12-27",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos largos",
+      "title": "Intervalos largos",
+      "text": "12 min suaves + 4×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2:30 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1000,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2.5,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 45,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km: ritmo cómodo 5:40–6:10/km, RPE 5; mantener conversación.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos largos",
+      "title": "Intervalos largos",
+      "text": "12 min suaves + 4×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2:30 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1000,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2.5,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 10,
+   "month": 3,
+   "start": "2026-12-28",
+   "end": "2027-01-03",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo fraccionado",
+      "title": "Tempo fraccionado",
+      "text": "12 min suaves + 2×15 min a 4:55–5:05/km, RPE 7, recuperación 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 2,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 15,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:55",
+          "5:05"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 45,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "17 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 17,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo fraccionado",
+      "title": "Tempo fraccionado",
+      "text": "12 min suaves + 2×15 min a 4:55–5:05/km, RPE 7, recuperación 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 2,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 15,
+          "unit": "min"
+         },
+         "zone": "umbral",
+         "pace": [
+          "4:55",
+          "5:05"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "17 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 17,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 11,
+   "month": 3,
+   "start": "2027-01-04",
+   "end": "2027-01-10",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "fartlek",
+      "title": "Fartlek",
+      "text": "12 min suaves + 6×(3 min a 4:40–4:50/km, RPE 7–8 / 2 min suaves a 6:10–6:40/km) + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 6,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:40",
+          "4:50"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:10",
+          "6:40"
+         ],
+         "rpe": [
+          3,
+          4
+         ]
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40–45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          40,
+          45
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "18 km: 14 km cómodos (5:40–6:10/km) + 4 km controlados (5:20–5:35/km), RPE 6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 4,
+         "unit": "km"
+        },
+        "zone": "controlado",
+        "pace": [
+         "5:20",
+         "5:35"
+        ],
+        "rpe": [
+         6,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "fartlek",
+      "title": "Fartlek",
+      "text": "12 min suaves + 6×(3 min a 4:40–4:50/km, RPE 7–8 / 2 min suaves) + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 6,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:40",
+          "4:50"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "suave",
+         "pace": [
+          "5:55",
+          "6:25"
+         ],
+         "rpe": [
+          4,
+          5
+         ]
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "18 km: 14 km cómodos (5:40–6:10/km) + 4 km controlados (5:20–5:35/km), RPE 6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 4,
+         "unit": "km"
+        },
+        "zone": "controlado",
+        "pace": [
+         "5:20",
+         "5:35"
+        ],
+        "rpe": [
+         6,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 12,
+   "month": 3,
+   "start": "2027-01-11",
+   "end": "2027-01-17",
+   "tag": "descarga",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "35 min suave (6:00–6:30/km), RPE 4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "6:00",
+         "6:30"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "14 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "14 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 14,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 13,
+   "month": 4,
+   "start": "2027-01-18",
+   "end": "2027-01-24",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "ritmo objetivo",
+      "title": "Ritmo objetivo",
+      "text": "12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, con 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "45 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 45,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "andando/trotando"
+        }
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "18 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 18,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "ritmo objetivo",
+      "title": "Ritmo objetivo",
+      "text": "12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, con 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "18 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 18,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 14,
+   "month": 4,
+   "start": "2027-01-25",
+   "end": "2027-01-31",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos",
+      "text": "12 min suaves + 5×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 5,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1000,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "45 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 45,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "19 km: 15 km cómodos (5:40–6:10/km) + 4 km a 5:15–5:25/km, RPE 6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 15,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 4,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:15",
+         "5:25"
+        ],
+        "rpe": [
+         6,
+         6
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos",
+      "text": "12 min suaves + 5×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 5,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1000,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          8
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "19 km: 15 km cómodos (5:40–6:10/km) + 4 km a 5:15–5:25/km, RPE 6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 15,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 4,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:15",
+         "5:25"
+        ],
+        "rpe": [
+         6,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 15,
+   "month": 4,
+   "start": "2027-02-01",
+   "end": "2027-02-07",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo continuo",
+      "title": "Tempo continuo",
+      "text": "12 min suaves + 25 min a 4:55–5:05/km, RPE 7 + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 25,
+         "unit": "min"
+        },
+        "zone": "umbral",
+        "pace": [
+         "4:55",
+         "5:05"
+        ],
+        "rpe": [
+         7,
+         7
+        ]
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 40,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km cómodo (5:40–6:10/km), RPE 5. No acelerar al final.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "tempo continuo",
+      "title": "Tempo continuo",
+      "text": "12 min suaves + 25 min a 4:55–5:05/km, RPE 7 + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 25,
+         "unit": "min"
+        },
+        "zone": "umbral",
+        "pace": [
+         "4:55",
+         "5:05"
+        ],
+        "rpe": [
+         7,
+         7
+        ]
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km cómodo (5:40–6:10/km), RPE 5–6.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 16,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:40",
+         "6:10"
+        ],
+        "rpe": [
+         5,
+         6
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 16,
+   "month": 4,
+   "start": "2027-02-08",
+   "end": "2027-02-14",
+   "tag": "descarga",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "35 min suave (6:00–6:30/km), RPE 4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "6:00",
+         "6:30"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "13 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 13,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje",
+      "title": "Muy suave (descarga)",
+      "text": "35 min muy suave (6:15–6:45/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:15",
+         "6:45"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "13 km cómodo (5:50–6:20/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 13,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:50",
+         "6:20"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 17,
+   "month": 5,
+   "start": "2027-02-15",
+   "end": "2027-02-21",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "ritmo objetivo",
+      "title": "Ritmo objetivo",
+      "text": "12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, recuperación 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "40 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 40,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km con 3×2 km a ritmo objetivo (5:05–5:15/km, RPE 6) separados por 1 km cómodo; resto suave.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 5,
+         "unit": "km"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ],
+        "note": "resto suave (reparto orientativo)"
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          6
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 1,
+          "unit": "km"
+         },
+         "zone": "largo",
+         "pace": [
+          "5:40",
+          "6:10"
+         ],
+         "rpe": [
+          5,
+          5
+         ]
+        }
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 2,
+         "unit": "km"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ],
+        "note": "resto suave (reparto orientativo)"
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "ritmo objetivo",
+      "title": "Ritmo objetivo",
+      "text": "12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, recuperación 3 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 3,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "16 km con 3×2 km a ritmo objetivo (5:05–5:15/km, RPE 6) separados por 1 km cómodo; resto suave.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 5,
+         "unit": "km"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ],
+        "note": "resto suave (reparto orientativo)"
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "km"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          6
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 1,
+          "unit": "km"
+         },
+         "zone": "largo",
+         "pace": [
+          "5:40",
+          "6:10"
+         ],
+         "rpe": [
+          5,
+          5
+         ]
+        }
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 2,
+         "unit": "km"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ],
+        "note": "resto suave (reparto orientativo)"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 18,
+   "month": 5,
+   "start": "2027-02-22",
+   "end": "2027-02-28",
+   "tag": null,
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos moderados",
+      "text": "12 min suaves + 4×800 m a 4:35–4:45/km, RPE 7, recuperación 2 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 800,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "35–40 min suave (5:55–6:25/km), RPE 4–5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          35,
+          40
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         5
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:45–6:15/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:45",
+         "6:15"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "intervalos",
+      "title": "Intervalos moderados",
+      "text": "12 min suaves + 4×800 m a 4:35–4:45/km, RPE 7, recuperación 2 min trote + 10 min suaves.",
+      "blocks": [
+       {
+        "kind": "warmup",
+        "dur": {
+         "value": 12,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 800,
+          "unit": "m"
+         },
+         "zone": "intervalos",
+         "pace": [
+          "4:35",
+          "4:45"
+         ],
+         "rpe": [
+          7,
+          7
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "rec",
+         "pace": [
+          "6:15",
+          "6:45"
+         ],
+         "rpe": [
+          3,
+          4
+         ],
+         "note": "trote"
+        }
+       },
+       {
+        "kind": "cooldown",
+        "dur": {
+         "value": 10,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "12 km cómodo (5:45–6:15/km), RPE 5.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 12,
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:45",
+         "6:15"
+        ],
+        "rpe": [
+         5,
+         5
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 19,
+   "month": 5,
+   "start": "2027-03-01",
+   "end": "2027-03-07",
+   "tag": "afinamiento",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje+progresivos",
+      "title": "Rodaje + progresivos",
+      "text": "35 min suave (5:55–6:25/km), RPE 4; incluir 4×20 s progresivos con recuperación completa.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "recuperación completa"
+        }
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Rodaje suave",
+      "text": "25–30 min suave (6:00–6:30/km), RPE 3–4.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          25,
+          30
+         ],
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "6:00",
+         "6:30"
+        ],
+        "rpe": [
+         3,
+         4
+        ]
+       }
+      ]
+     },
+     {
+      "day": 3,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "8–9 km suave (5:55–6:25/km), RPE 4. Finalizar con sensación de frescura.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          8,
+          9
+         ],
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "rodaje+progresivos",
+      "title": "Rodaje + progresivos",
+      "text": "35 min suave (5:55–6:25/km), RPE 4; incluir 4×20 s progresivos con recuperación completa.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 35,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 4,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 20,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "progresivo"
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 60,
+          "unit": "s"
+         },
+         "zone": null,
+         "pace": null,
+         "rpe": null,
+         "note": "recuperación completa"
+        }
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "tirada",
+      "subtype": "tirada",
+      "title": "Tirada larga",
+      "text": "8–9 km suave (5:55–6:25/km), RPE 4. Finalizar con sensación de frescura.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": [
+          8,
+          9
+         ],
+         "unit": "km"
+        },
+        "zone": "largo",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "n": 20,
+   "month": 5,
+   "start": "2027-03-08",
+   "end": "2027-03-14",
+   "tag": "carrera",
+   "plans": {
+    "3d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "activación",
+      "title": "Activación",
+      "text": "30 min suave (5:55–6:25/km), RPE 4 + 3×1 min a ritmo objetivo 5:05–5:15/km, RPE 6, con 2 min suave.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 30,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1,
+          "unit": "min"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          6
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "suave",
+         "pace": [
+          "5:55",
+          "6:25"
+         ],
+         "rpe": [
+          4,
+          4
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "rodaje",
+      "subtype": "rodaje",
+      "title": "Muy suave (opcional)",
+      "text": "20 min muy suave (6:10–6:40/km), RPE 3; opcional: si hay fatiga, descansar.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 20,
+         "unit": "min"
+        },
+        "zone": "rec",
+        "pace": [
+         "6:10",
+         "6:40"
+        ],
+        "rpe": [
+         3,
+         3
+        ]
+       }
+      ],
+      "optional": true
+     },
+     {
+      "day": 3,
+      "type": "carrera",
+      "subtype": "carrera",
+      "title": "🏁 Media Maratón de Zaragoza",
+      "text": "MEDIA MARATÓN: 21,1 km. Salida conservadora a 5:15–5:20/km durante 5 km; si te sientes bien, estabilizar 5:05–5:15/km. RPE 5–6 hasta km 15, 7–8 en los últimos 6 km según sensaciones.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 5,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:15",
+         "5:20"
+        ],
+        "rpe": [
+         5,
+         6
+        ],
+        "note": "salida conservadora"
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 10,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:05",
+         "5:15"
+        ],
+        "rpe": [
+         5,
+         6
+        ],
+        "note": "estabilizar si hay buenas sensaciones"
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 6.1,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:05",
+         "5:15"
+        ],
+        "rpe": [
+         7,
+         8
+        ],
+        "note": "últimos 6 km según sensaciones"
+       }
+      ]
+     }
+    ],
+    "2d": [
+     {
+      "day": 1,
+      "type": "calidad",
+      "subtype": "activación",
+      "title": "Activación",
+      "text": "30 min suave (5:55–6:25/km), RPE 4 + 3×1 min a ritmo objetivo 5:05–5:15/km, RPE 6, con 2 min suave.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 30,
+         "unit": "min"
+        },
+        "zone": "suave",
+        "pace": [
+         "5:55",
+         "6:25"
+        ],
+        "rpe": [
+         4,
+         4
+        ]
+       },
+       {
+        "kind": "repeat",
+        "times": 3,
+        "work": {
+         "kind": "run",
+         "dur": {
+          "value": 1,
+          "unit": "min"
+         },
+         "zone": "mm",
+         "pace": [
+          "5:05",
+          "5:15"
+         ],
+         "rpe": [
+          6,
+          6
+         ]
+        },
+        "rest": {
+         "kind": "run",
+         "dur": {
+          "value": 2,
+          "unit": "min"
+         },
+         "zone": "suave",
+         "pace": [
+          "5:55",
+          "6:25"
+         ],
+         "rpe": [
+          4,
+          4
+         ]
+        }
+       }
+      ]
+     },
+     {
+      "day": 2,
+      "type": "carrera",
+      "subtype": "carrera",
+      "title": "🏁 Media Maratón de Zaragoza",
+      "text": "MEDIA MARATÓN: 21,1 km. Salida conservadora a 5:15–5:20/km durante 5 km; si te sientes bien, estabilizar 5:05–5:15/km. RPE 5–6 hasta km 15, 7–8 en los últimos 6 km según sensaciones.",
+      "blocks": [
+       {
+        "kind": "run",
+        "dur": {
+         "value": 5,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:15",
+         "5:20"
+        ],
+        "rpe": [
+         5,
+         6
+        ],
+        "note": "salida conservadora"
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 10,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:05",
+         "5:15"
+        ],
+        "rpe": [
+         5,
+         6
+        ],
+        "note": "estabilizar si hay buenas sensaciones"
+       },
+       {
+        "kind": "run",
+        "dur": {
+         "value": 6.1,
+         "unit": "km"
+        },
+        "zone": "mm",
+        "pace": [
+         "5:05",
+         "5:15"
+        ],
+        "rpe": [
+         7,
+         8
+        ],
+        "note": "últimos 6 km según sensaciones"
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

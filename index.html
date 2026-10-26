@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Entrenador Gon</title>
+<meta name="description" content="Entrenador Gon: plan de entrenamiento de 20 semanas para la Media Maratón de Zaragoza">
+<meta name="theme-color" content="#F27A12">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Coach Gon">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: una columna móvil (máx. 560px); banda superior en degradado amarillo→rojo con logo y progreso; 3 pestañas fijas abajo; la próxima sesión como un dorsal. */
+:root{
+  --bg:#FFF7E8; --surface:#FFFFFF; --surface-2:#FCEBCB; --ink:#2B1810; --muted:#7A5A47; --line:#F1DDBD;
+  --sun:#FFC21A; --orange:#F27A12; --accent:#E2531A; --red:#C8241F; --accent-soft:#FDE3CF; --accent-ink:#FFFFFF;
+  --grad:linear-gradient(100deg,#FFC21A 0%,#F7931E 45%,#E2531A 75%,#C8241F 100%);
+  --ok:#2E8B4E; --ok-soft:#DDF1E2; --skip:#9A6F58; --skip-soft:#F3E3D6;
+  --z-rec:#4A88B9; --z-suave:#2C9873; --z-largo:#6E9A2F; --z-controlado:#BE8E12; --z-mm:#D8641C; --z-umbral:#D23F36; --z-intervalos:#9147C3; --z-free:#A88A76;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1A110B; --surface:#261911; --surface-2:#352318; --ink:#FFF0DA; --muted:#C9A88E; --line:#3E2A1D;
+  --sun:#FFC93C; --orange:#FF9A3D; --accent:#FF7A3A; --red:#FF5A4E; --accent-soft:#45261A; --accent-ink:#1A110B;
+  --grad:linear-gradient(100deg,#FFC93C 0%,#FF9A3D 45%,#FF7A3A 75%,#FF5A4E 100%);
+  --ok:#5CCB84; --ok-soft:#1C3324; --skip:#C9A88E; --skip-soft:#3A281D;
+  --z-rec:#6FAEDD; --z-suave:#4CC39A; --z-largo:#9CC75A; --z-controlado:#E5B83D; --z-mm:#F08A47; --z-umbral:#F26A60; --z-intervalos:#B97DE6; --z-free:#9C8270;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A110B; --surface:#261911; --surface-2:#352318; --ink:#FFF0DA; --muted:#C9A88E; --line:#3E2A1D;
+  --sun:#FFC93C; --orange:#FF9A3D; --accent:#FF7A3A; --red:#FF5A4E; --accent-soft:#45261A; --accent-ink:#1A110B;
+  --grad:linear-gradient(100deg,#FFC93C 0%,#FF9A3D 45%,#FF7A3A 75%,#FF5A4E 100%);
+  --ok:#5CCB84; --ok-soft:#1C3324; --skip:#C9A88E; --skip-soft:#3A281D;
+  --z-rec:#6FAEDD; --z-suave:#4CC39A; --z-largo:#9CC75A; --z-controlado:#E5B83D; --z-mm:#F08A47; --z-umbral:#F26A60; --z-intervalos:#B97DE6; --z-free:#9C8270;
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.wrap{max-width:560px;margin:0 auto;padding-block:calc(14px + env(safe-area-inset-top,0px)) calc(104px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{margin:0;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--f-mono)}
+.label{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+
+/* Logo */
+.logo{display:block;flex-shrink:0}
+
+/* Cabecera */
+.head{display:flex;flex-direction:column;gap:12px}
+.head-top{display:flex;align-items:center;gap:12px}
+.hello{flex:1;min-width:0;font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1}
+.count{text-align:right;flex-shrink:0;line-height:1}
+.count b{font-family:var(--f-display);font-size:30px;display:block;color:var(--accent)}
+.count span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.bar{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--grad);border-radius:99px;transition:width .4s}
+.bar-row{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:-6px}
+
+/* Dorsal */
+.bib{position:relative;background:var(--grad);color:#2B1810;border-radius:14px;padding:22px 18px 18px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;overflow:hidden}
+.bib .pin{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 2px rgb(43 24 16 / .35)}
+.bib .p1{top:9px;left:9px}.bib .p2{top:9px;right:9px}.bib .p3{bottom:9px;left:9px}.bib .p4{bottom:9px;right:9px}
+.bib-label{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;opacity:.75}
+.bib-num{font-family:var(--f-display);font-weight:700;font-size:68px;line-height:.9;letter-spacing:.01em}
+.bib-title{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.1}
+.bib .btn{margin-top:8px;background:#2B1810;color:#FFF7E8}
+
+/* Botones */
+.btn{border:0;border-radius:11px;padding:11px 18px;font-weight:600;background:var(--surface-2);min-height:44px}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line)}
+.btn.danger{background:transparent;color:var(--red);border:1px solid var(--red)}
+.btn.small{padding:6px 12px;min-height:34px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Semana y sesiones */
+.section{display:flex;flex-direction:column;gap:10px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-title{font-family:var(--f-display);font-size:22px;font-weight:700;line-height:1.1}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:9px;padding:3px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:600;color:var(--muted);min-height:32px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+.seg button:disabled{cursor:not-allowed}
+.seg.locked{opacity:.6}
+.sessions{display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r);border:1px solid var(--line);overflow:hidden}
+.srow{display:grid;grid-template-columns:5px 1fr auto;gap:12px;align-items:center;padding:13px 14px 13px 0;border:0;border-top:1px solid var(--line);background:transparent;text-align:left;width:100%;cursor:pointer}
+.srow:first-child{border-top:0}
+.srow .stripe{align-self:stretch;border-radius:0 4px 4px 0}
+.srow .s-main{min-width:0;display:flex;align-items:baseline;gap:8px}
+.srow .s-day{font-size:12px;font-weight:600;color:var(--muted);flex-shrink:0;width:38px}
+.srow .s-title{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srow .s-sub{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.state{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex-shrink:0;background:transparent;padding:0}
+.state svg{width:14px;height:14px;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.state.ok{background:var(--ok);border-color:var(--ok)}.state.ok svg{stroke:var(--surface)}
+.state.skip{background:var(--skip-soft);border-color:var(--skip)}.state.skip svg{stroke:var(--skip)}
+button.state{cursor:pointer}
+.extra-row .stripe{background:var(--grad)}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.skip{background:var(--skip-soft);color:var(--skip)}
+
+/* Plan */
+.totals{display:flex;gap:18px;font-size:14px;color:var(--muted)}
+.totals b{font-family:var(--f-display);font-size:22px;color:var(--ink);margin-right:4px}
+.month{display:flex;flex-direction:column;gap:8px}
+.month-h{display:flex;gap:10px;align-items:baseline}
+.month-h .m{font-family:var(--f-display);font-weight:700;font-size:15px;color:var(--accent);letter-spacing:.06em}
+.month-h .n{font-family:var(--f-display);font-weight:600;font-size:20px}
+details.week{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+details.week summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;cursor:pointer}
+details.week summary::-webkit-details-marker{display:none}
+.wk-n{font-family:var(--f-display);font-weight:700;font-size:24px;width:40px}
+.wk-dates{font-size:13.5px;color:var(--muted)}
+.wk-body{padding:0 12px 12px;display:flex;flex-direction:column;gap:10px}
+.week.current{border-color:var(--accent)}
+.week.current .wk-n{color:var(--accent)}
+.dots{display:flex;gap:4px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--surface-2)}
+.dots i.ok{background:var(--ok)}
+.dots i.skip{background:var(--skip)}
+
+/* Dorsal (pestaña) */
+.zones{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.zone{display:grid;grid-template-columns:5px 1fr auto auto;gap:12px;align-items:center;padding:11px 14px 11px 0;border-top:1px solid var(--line)}
+.zone:first-child{border-top:0}
+.zone .stripe{align-self:stretch;border-radius:0 4px 4px 0}
+.zone .pace{font-family:var(--f-mono);font-size:14px}
+.zone .rpe{font-size:13px;color:var(--muted);min-width:56px;text-align:right}
+.note{font-size:13.5px;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:12px}
+
+/* Formularios */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600;color:var(--muted)}
+.input{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%;min-height:44px}
+textarea.input{min-height:76px;resize:vertical}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rpe-out{font-family:var(--f-display);font-size:26px;font-weight:700;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.calc{font-size:14px;color:var(--muted)}
+.calc b{color:var(--ink);font-family:var(--f-mono)}
+
+/* Hoja inferior */
+.scrim{position:fixed;inset:0;background:rgb(26 17 11 / .55);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:18px 18px 0 0;
+  padding:18px max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+  display:flex;flex-direction:column;gap:14px}
+.sheet::before{content:"";display:block;height:5px;border-radius:99px;background:var(--grad);margin:-6px -2px 2px}
+.sheet-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.sheet-h h2{font-family:var(--f-display);font-size:28px;line-height:1.05}
+.sheet-h .tools{display:flex;gap:6px;flex-shrink:0}
+.x{border:0;background:var(--surface-2);width:36px;height:36px;border-radius:50%;font-size:16px;font-weight:700;flex-shrink:0}
+details.orig{font-size:13.5px;color:var(--muted)}
+details.orig summary{cursor:pointer;font-weight:600}
+details.orig p{margin:8px 0 0;background:var(--bg);border-radius:10px;padding:10px 12px}
+.blocks{display:flex;flex-direction:column;gap:6px}
+.blk{display:grid;grid-template-columns:5px 1fr;gap:10px;background:var(--bg);border-radius:10px;padding:10px 12px 10px 0;overflow:hidden}
+.blk .stripe{border-radius:0 4px 4px 0}
+.blk .t{font-weight:600}
+.blk .d{font-size:13.5px;color:var(--muted)}
+.blk .d .mono{color:var(--ink);font-size:13px}
+.rep{border:1.5px solid var(--line);border-radius:12px;padding:8px;display:flex;flex-direction:column;gap:6px}
+.rep-h{font-family:var(--f-display);font-weight:700;font-size:20px;padding-left:4px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.actions .btn{flex:1 1 140px}
+
+/* Temporizador */
+.timer{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(18px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));gap:14px}
+.timer-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.t-phase{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;border-radius:22px;padding:20px;border:3px solid var(--z-free);transition:border-color .3s}
+.t-step{font-family:var(--f-display);font-weight:700;font-size:40px;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+.t-rep{font-family:var(--f-display);font-size:22px;color:var(--muted)}
+.t-clock{font-family:var(--f-mono);font-weight:600;font-size:clamp(64px,22vw,120px);line-height:1;font-variant-numeric:tabular-nums}
+.t-target{font-size:17px}
+.t-next{font-size:14px;color:var(--muted)}
+.t-ctrl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.t-ctrl .btn{min-height:56px;font-size:16px}
+
+/* Pestañas */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabs::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;background:var(--grad)}
+.tabs-in{max-width:420px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;font-size:12px;font-weight:600;color:var(--muted);min-height:50px}
+.tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab[aria-selected="true"]{color:var(--accent);background:var(--accent-soft)}
+
+/* Bienvenida */
+.welcome{min-height:72vh;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.welcome h1{font-family:var(--f-display);font-size:46px;line-height:1}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:80;max-width:calc(100% - 32px)}
+.update{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:90;background:var(--ink);color:var(--bg);border-radius:12px;padding:8px 8px 8px 14px;display:flex;gap:10px;align-items:center;font-size:14px;max-width:calc(100% - 32px)}
+.update .btn{min-height:36px;padding:6px 12px}
+.version{font-size:12px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div id="updateHost"></div>
+
+<nav class="tabs" id="tabs" hidden>
+  <div class="tabs-in" role="tablist">
+    <button class="tab" data-tab="hoy" role="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>Hoy</button>
+    <button class="tab" data-tab="plan" role="tab"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Plan</button>
+    <button class="tab" data-tab="dorsal" role="tab"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="6.5" cy="8" r=".6"/><circle cx="17.5" cy="8" r=".6"/><circle cx="6.5" cy="16" r=".6"/><circle cx="17.5" cy="16" r=".6"/><path d="M9.5 10.5h5M9.5 13.5h5"/></svg>Dorsal</button>
+  </div>
+</nav>
+
+<div id="sheetHost"></div>
+<div id="timerHost"></div>
+<div id="toastHost"></div>
+
+<script>
+const PLAN = {"meta":{"title":"Plan Media Maratón ZGZ","objective":"Terminar la carrera, sin morir, al mejor ritmo posible.","race":{"name":"Media Maratón de Zaragoza","date":"2027-03-14","distance_km":21.1,"target_pace":["5:05","5:15"],"target_time":["1:47","1:51"]},"start":"2026-10-26","weeks":20,"default_plan":"3d","notes":["Ritmos orientativos, estimados a partir de 10 km a 5:40/km.","Dejar al menos 1 día sin correr entre sesiones cuando sea posible."]},"zones":{"rec":{"name":"Recuperación muy suave","pace":["6:15","6:45"],"rpe":[3,4],"color":"#7fb3d5"},"suave":{"name":"Rodaje suave","pace":["5:55","6:25"],"rpe":[4,5],"color":"#76c7a4"},"largo":{"name":"Tirada larga aeróbica","pace":["5:40","6:10"],"rpe":[5,6],"color":"#a8d36b"},"controlado":{"name":"Ritmo controlado","pace":["5:20","5:40"],"rpe":[6,6],"color":"#f2c94c"},"mm":{"name":"Ritmo objetivo media maratón","pace":["5:05","5:15"],"rpe":[6,7],"color":"#f2994a"},"umbral":{"name":"Umbral / tempo","pace":["4:50","5:05"],"rpe":[7,7],"color":"#eb5757"},"intervalos":{"name":"Intervalos","pace":["4:30","4:45"],"rpe":[7,8],"color":"#bb6bd9"}},"rpe_scale":[{"range":[3,4],"label":"Fácil"},{"range":[5,6],"label":"Moderado"},{"range":[7,7],"label":"Exigente"},{"range":[8,8],"label":"Muy exigente pero controlado"},{"range":[9,10],"label":"Evitar esfuerzos máximos"}],"phases":[{"month":1,"name":"Adaptación y base aeróbica","weeks":[1,4]},{"month":2,"name":"Desarrollo aeróbico","weeks":[5,8]},{"month":3,"name":"Resistencia específica","weeks":[9,12]},{"month":4,"name":"Pico específico","weeks":[13,16]},{"month":5,"name":"Afinamiento y carrera","weeks":[17,20]}],"weeks":[{"n":1,"month":1,"start":"2026-10-26","end":"2026-11-01","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje+progresivos","title":"Rodaje + progresivos","text":"35–40 min suave (5:55–6:25/km), RPE 4–5. Al final: 4×20 s progresivos (4:10–4:25/km), recuperando 60 s andando/trotando.","blocks":[{"kind":"run","dur":{"value":[35,40],"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":["4:10","4:25"],"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"andando/trotando"}}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":40,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"10 km cómodo (5:40–6:10/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":10,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"fartlek","title":"Fartlek","text":"10 min suaves + 6×(2 min a 4:50–5:00/km, RPE 7 / 2 min suave a 6:10–6:40/km, RPE 3–4) + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":6,"work":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"umbral","pace":["4:50","5:00"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:10","6:40"],"rpe":[3,4]}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"10 km cómodo (5:40–6:10/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":10,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}]}},{"n":2,"month":1,"start":"2026-11-02","end":"2026-11-08","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"fartlek","title":"Fartlek","text":"10 min suaves + 6×(2 min a 4:50–5:00/km, RPE 7 / 2 min suave a 6:10–6:40/km, RPE 3–4) + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":6,"work":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"umbral","pace":["4:50","5:00"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:10","6:40"],"rpe":[3,4]}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40–45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[40,45],"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:40–6:10/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"tempo fraccionado","title":"Tempo fraccionado","text":"12 min suaves + 3×6 min a 4:55–5:05/km, RPE 6–7, 2 min trote entre bloques + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":6,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:40–6:10/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}]}},{"n":3,"month":1,"start":"2026-11-09","end":"2026-11-15","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"tempo fraccionado","title":"Tempo fraccionado","text":"12 min suaves + 3×6 min a 4:55–5:05/km, RPE 6–7, con 2 min de trote suave + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":6,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos opcionales.","blocks":[{"kind":"run","dur":{"value":40,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"andando/trotando"},"optional":true}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"13 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":13,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"fartlek","title":"Fartlek","text":"12 min suaves + 5×(3 min a 4:50–5:00/km, RPE 7 / 2 min suaves) + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":5,"work":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"umbral","pace":["4:50","5:00"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"13 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":13,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":4,"month":1,"start":"2026-11-16","end":"2026-11-22","tag":"descarga","plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"30–35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":[30,35],"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Muy suave","text":"30 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":30,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"9–10 km cómodo y relajado (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[9,10],"unit":"km"},"zone":"largo","pace":["5:55","6:25"],"rpe":[4,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"30–35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":[30,35],"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"9–10 km cómodo (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[9,10],"unit":"km"},"zone":"largo","pace":["5:55","6:25"],"rpe":[4,5]}]}]}},{"n":5,"month":2,"start":"2026-11-23","end":"2026-11-29","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos","text":"12 min suaves + 5×800 m a 4:35–4:45/km, RPE 7–8, con 2 min de trote entre repeticiones + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":5,"work":{"kind":"run","dur":{"value":800,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40–45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[40,45],"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"14 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos","text":"12 min suaves + 5×800 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":5,"work":{"kind":"run","dur":{"value":800,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"14 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":6,"month":2,"start":"2026-11-30","end":"2026-12-06","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"cuestas","title":"Cuestas","text":"12 min suaves + 8×45 s cuesta arriba a RPE 7–8 (ritmo por esfuerzo, técnica estable), recuperación bajando al trote/andando 90–120 s + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":8,"work":{"kind":"run","dur":{"value":45,"unit":"s"},"zone":"intervalos","pace":null,"rpe":[7,8],"note":"cuesta arriba, ritmo por esfuerzo, técnica estable"},"rest":{"kind":"run","dur":{"value":[90,120],"unit":"s"},"zone":"rec","pace":null,"rpe":[3,4],"note":"bajando al trote/andando"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":45,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"15 km: primeros 12 km a 5:40–6:10/km (RPE 5), últimos 3 km a 5:20–5:35/km (RPE 6).","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]},{"kind":"run","dur":{"value":3,"unit":"km"},"zone":"controlado","pace":["5:20","5:35"],"rpe":[6,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"cuestas","title":"Cuestas","text":"12 min suaves + 8×45 s cuesta arriba a RPE 7–8; bajar al trote/andar 90–120 s + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":8,"work":{"kind":"run","dur":{"value":45,"unit":"s"},"zone":"intervalos","pace":null,"rpe":[7,8],"note":"cuesta arriba, ritmo por esfuerzo, técnica estable"},"rest":{"kind":"run","dur":{"value":[90,120],"unit":"s"},"zone":"rec","pace":null,"rpe":[3,4],"note":"bajando al trote/andando"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"15 km: 12 km a 5:40–6:10/km + 3 km a 5:20–5:35/km, RPE 5–6.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]},{"kind":"run","dur":{"value":3,"unit":"km"},"zone":"controlado","pace":["5:20","5:35"],"rpe":[5,6]}]}]}},{"n":7,"month":2,"start":"2026-12-07","end":"2026-12-13","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"tempo","title":"Tempo","text":"12 min suaves + 20 min a 4:55–5:05/km, RPE 7 + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"run","dur":{"value":20,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos.","blocks":[{"kind":"run","dur":{"value":40,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"andando/trotando"}}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"tempo","title":"Tempo","text":"12 min suaves + 20 min a 4:55–5:05/km, RPE 7 + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"run","dur":{"value":20,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":8,"month":2,"start":"2026-12-14","end":"2026-12-20","tag":"descarga","plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"30–35 min suave (6:00–6:30/km), RPE 4.","blocks":[{"kind":"run","dur":{"value":[30,35],"unit":"min"},"zone":"suave","pace":["6:00","6:30"],"rpe":[4,4]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}]}},{"n":9,"month":3,"start":"2026-12-21","end":"2026-12-27","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"intervalos largos","title":"Intervalos largos","text":"12 min suaves + 4×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2:30 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":1000,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2.5,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":45,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km: ritmo cómodo 5:40–6:10/km, RPE 5; mantener conversación.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"intervalos largos","title":"Intervalos largos","text":"12 min suaves + 4×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2:30 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":1000,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2.5,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":10,"month":3,"start":"2026-12-28","end":"2027-01-03","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"tempo fraccionado","title":"Tempo fraccionado","text":"12 min suaves + 2×15 min a 4:55–5:05/km, RPE 7, recuperación 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":2,"work":{"kind":"run","dur":{"value":15,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":45,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"17 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":17,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"tempo fraccionado","title":"Tempo fraccionado","text":"12 min suaves + 2×15 min a 4:55–5:05/km, RPE 7, recuperación 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":2,"work":{"kind":"run","dur":{"value":15,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"17 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":17,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":11,"month":3,"start":"2027-01-04","end":"2027-01-10","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"fartlek","title":"Fartlek","text":"12 min suaves + 6×(3 min a 4:40–4:50/km, RPE 7–8 / 2 min suaves a 6:10–6:40/km) + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":6,"work":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"intervalos","pace":["4:40","4:50"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:10","6:40"],"rpe":[3,4]}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40–45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[40,45],"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"18 km: 14 km cómodos (5:40–6:10/km) + 4 km controlados (5:20–5:35/km), RPE 6.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]},{"kind":"run","dur":{"value":4,"unit":"km"},"zone":"controlado","pace":["5:20","5:35"],"rpe":[6,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"fartlek","title":"Fartlek","text":"12 min suaves + 6×(3 min a 4:40–4:50/km, RPE 7–8 / 2 min suaves) + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":6,"work":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"intervalos","pace":["4:40","4:50"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"18 km: 14 km cómodos (5:40–6:10/km) + 4 km controlados (5:20–5:35/km), RPE 6.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]},{"kind":"run","dur":{"value":4,"unit":"km"},"zone":"controlado","pace":["5:20","5:35"],"rpe":[6,6]}]}]}},{"n":12,"month":3,"start":"2027-01-11","end":"2027-01-17","tag":"descarga","plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"35 min suave (6:00–6:30/km), RPE 4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"suave","pace":["6:00","6:30"],"rpe":[4,4]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"14 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"14 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":14,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}]}},{"n":13,"month":4,"start":"2027-01-18","end":"2027-01-24","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"ritmo objetivo","title":"Ritmo objetivo","text":"12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, con 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"45 min suave (5:55–6:25/km), RPE 4–5; 4×20 s progresivos.","blocks":[{"kind":"run","dur":{"value":45,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"andando/trotando"}}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"18 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":18,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"ritmo objetivo","title":"Ritmo objetivo","text":"12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, con 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"18 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":18,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":14,"month":4,"start":"2027-01-25","end":"2027-01-31","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos","text":"12 min suaves + 5×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":5,"work":{"kind":"run","dur":{"value":1000,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"45 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":45,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"19 km: 15 km cómodos (5:40–6:10/km) + 4 km a 5:15–5:25/km, RPE 6.","blocks":[{"kind":"run","dur":{"value":15,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]},{"kind":"run","dur":{"value":4,"unit":"km"},"zone":"mm","pace":["5:15","5:25"],"rpe":[6,6]}]}],"2d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos","text":"12 min suaves + 5×1.000 m a 4:35–4:45/km, RPE 7–8, recuperación 2 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":5,"work":{"kind":"run","dur":{"value":1000,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,8]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"19 km: 15 km cómodos (5:40–6:10/km) + 4 km a 5:15–5:25/km, RPE 6.","blocks":[{"kind":"run","dur":{"value":15,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]},{"kind":"run","dur":{"value":4,"unit":"km"},"zone":"mm","pace":["5:15","5:25"],"rpe":[6,6]}]}]}},{"n":15,"month":4,"start":"2027-02-01","end":"2027-02-07","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"tempo continuo","title":"Tempo continuo","text":"12 min suaves + 25 min a 4:55–5:05/km, RPE 7 + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"run","dur":{"value":25,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":40,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km cómodo (5:40–6:10/km), RPE 5. No acelerar al final.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"tempo continuo","title":"Tempo continuo","text":"12 min suaves + 25 min a 4:55–5:05/km, RPE 7 + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"run","dur":{"value":25,"unit":"min"},"zone":"umbral","pace":["4:55","5:05"],"rpe":[7,7]},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km cómodo (5:40–6:10/km), RPE 5–6.","blocks":[{"kind":"run","dur":{"value":16,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,6]}]}]}},{"n":16,"month":4,"start":"2027-02-08","end":"2027-02-14","tag":"descarga","plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"35 min suave (6:00–6:30/km), RPE 4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"suave","pace":["6:00","6:30"],"rpe":[4,4]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"13 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":13,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"rodaje","title":"Muy suave (descarga)","text":"35 min muy suave (6:15–6:45/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"13 km cómodo (5:50–6:20/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":13,"unit":"km"},"zone":"largo","pace":["5:50","6:20"],"rpe":[4,5]}]}]}},{"n":17,"month":5,"start":"2027-02-15","end":"2027-02-21","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"ritmo objetivo","title":"Ritmo objetivo","text":"12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, recuperación 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"40 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":40,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km con 3×2 km a ritmo objetivo (5:05–5:15/km, RPE 6) separados por 1 km cómodo; resto suave.","blocks":[{"kind":"run","dur":{"value":5,"unit":"km"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5],"note":"resto suave (reparto orientativo)"},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,6]},"rest":{"kind":"run","dur":{"value":1,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}},{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5],"note":"resto suave (reparto orientativo)"}]}],"2d":[{"day":1,"type":"calidad","subtype":"ritmo objetivo","title":"Ritmo objetivo","text":"12 min suaves + 3×2 km a 5:05–5:15/km, RPE 6–7, recuperación 3 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,7]},"rest":{"kind":"run","dur":{"value":3,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"16 km con 3×2 km a ritmo objetivo (5:05–5:15/km, RPE 6) separados por 1 km cómodo; resto suave.","blocks":[{"kind":"run","dur":{"value":5,"unit":"km"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5],"note":"resto suave (reparto orientativo)"},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,6]},"rest":{"kind":"run","dur":{"value":1,"unit":"km"},"zone":"largo","pace":["5:40","6:10"],"rpe":[5,5]}},{"kind":"run","dur":{"value":2,"unit":"km"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5],"note":"resto suave (reparto orientativo)"}]}]}},{"n":18,"month":5,"start":"2027-02-22","end":"2027-02-28","tag":null,"plans":{"3d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos moderados","text":"12 min suaves + 4×800 m a 4:35–4:45/km, RPE 7, recuperación 2 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":800,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"35–40 min suave (5:55–6:25/km), RPE 4–5.","blocks":[{"kind":"run","dur":{"value":[35,40],"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,5]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:45–6:15/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:45","6:15"],"rpe":[5,5]}]}],"2d":[{"day":1,"type":"calidad","subtype":"intervalos","title":"Intervalos moderados","text":"12 min suaves + 4×800 m a 4:35–4:45/km, RPE 7, recuperación 2 min trote + 10 min suaves.","blocks":[{"kind":"warmup","dur":{"value":12,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":800,"unit":"m"},"zone":"intervalos","pace":["4:35","4:45"],"rpe":[7,7]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"rec","pace":["6:15","6:45"],"rpe":[3,4],"note":"trote"}},{"kind":"cooldown","dur":{"value":10,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"12 km cómodo (5:45–6:15/km), RPE 5.","blocks":[{"kind":"run","dur":{"value":12,"unit":"km"},"zone":"largo","pace":["5:45","6:15"],"rpe":[5,5]}]}]}},{"n":19,"month":5,"start":"2027-03-01","end":"2027-03-07","tag":"afinamiento","plans":{"3d":[{"day":1,"type":"calidad","subtype":"rodaje+progresivos","title":"Rodaje + progresivos","text":"35 min suave (5:55–6:25/km), RPE 4; incluir 4×20 s progresivos con recuperación completa.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"recuperación completa"}}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Rodaje suave","text":"25–30 min suave (6:00–6:30/km), RPE 3–4.","blocks":[{"kind":"run","dur":{"value":[25,30],"unit":"min"},"zone":"suave","pace":["6:00","6:30"],"rpe":[3,4]}]},{"day":3,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"8–9 km suave (5:55–6:25/km), RPE 4. Finalizar con sensación de frescura.","blocks":[{"kind":"run","dur":{"value":[8,9],"unit":"km"},"zone":"largo","pace":["5:55","6:25"],"rpe":[4,4]}]}],"2d":[{"day":1,"type":"calidad","subtype":"rodaje+progresivos","title":"Rodaje + progresivos","text":"35 min suave (5:55–6:25/km), RPE 4; incluir 4×20 s progresivos con recuperación completa.","blocks":[{"kind":"run","dur":{"value":35,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":4,"work":{"kind":"run","dur":{"value":20,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"progresivo"},"rest":{"kind":"run","dur":{"value":60,"unit":"s"},"zone":null,"pace":null,"rpe":null,"note":"recuperación completa"}}]},{"day":2,"type":"tirada","subtype":"tirada","title":"Tirada larga","text":"8–9 km suave (5:55–6:25/km), RPE 4. Finalizar con sensación de frescura.","blocks":[{"kind":"run","dur":{"value":[8,9],"unit":"km"},"zone":"largo","pace":["5:55","6:25"],"rpe":[4,4]}]}]}},{"n":20,"month":5,"start":"2027-03-08","end":"2027-03-14","tag":"carrera","plans":{"3d":[{"day":1,"type":"calidad","subtype":"activación","title":"Activación","text":"30 min suave (5:55–6:25/km), RPE 4 + 3×1 min a ritmo objetivo 5:05–5:15/km, RPE 6, con 2 min suave.","blocks":[{"kind":"run","dur":{"value":30,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":1,"unit":"min"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,6]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}}]},{"day":2,"type":"rodaje","subtype":"rodaje","title":"Muy suave (opcional)","text":"20 min muy suave (6:10–6:40/km), RPE 3; opcional: si hay fatiga, descansar.","blocks":[{"kind":"run","dur":{"value":20,"unit":"min"},"zone":"rec","pace":["6:10","6:40"],"rpe":[3,3]}],"optional":true},{"day":3,"type":"carrera","subtype":"carrera","title":"🏁 Media Maratón de Zaragoza","text":"MEDIA MARATÓN: 21,1 km. Salida conservadora a 5:15–5:20/km durante 5 km; si te sientes bien, estabilizar 5:05–5:15/km. RPE 5–6 hasta km 15, 7–8 en los últimos 6 km según sensaciones.","blocks":[{"kind":"run","dur":{"value":5,"unit":"km"},"zone":"mm","pace":["5:15","5:20"],"rpe":[5,6],"note":"salida conservadora"},{"kind":"run","dur":{"value":10,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[5,6],"note":"estabilizar si hay buenas sensaciones"},{"kind":"run","dur":{"value":6.1,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[7,8],"note":"últimos 6 km según sensaciones"}]}],"2d":[{"day":1,"type":"calidad","subtype":"activación","title":"Activación","text":"30 min suave (5:55–6:25/km), RPE 4 + 3×1 min a ritmo objetivo 5:05–5:15/km, RPE 6, con 2 min suave.","blocks":[{"kind":"run","dur":{"value":30,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]},{"kind":"repeat","times":3,"work":{"kind":"run","dur":{"value":1,"unit":"min"},"zone":"mm","pace":["5:05","5:15"],"rpe":[6,6]},"rest":{"kind":"run","dur":{"value":2,"unit":"min"},"zone":"suave","pace":["5:55","6:25"],"rpe":[4,4]}}]},{"day":2,"type":"carrera","subtype":"carrera","title":"🏁 Media Maratón de Zaragoza","text":"MEDIA MARATÓN: 21,1 km. Salida conservadora a 5:15–5:20/km durante 5 km; si te sientes bien, estabilizar 5:05–5:15/km. RPE 5–6 hasta km 15, 7–8 en los últimos 6 km según sensaciones.","blocks":[{"kind":"run","dur":{"value":5,"unit":"km"},"zone":"mm","pace":["5:15","5:20"],"rpe":[5,6],"note":"salida conservadora"},{"kind":"run","dur":{"value":10,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[5,6],"note":"estabilizar si hay buenas sensaciones"},{"kind":"run","dur":{"value":6.1,"unit":"km"},"zone":"mm","pace":["5:05","5:15"],"rpe":[7,8],"note":"últimos 6 km según sensaciones"}]}]}}]};
+const START = new Date(2026, 9, 26);
+const RACE = new Date(2027, 2, 14);
+const TOTAL_DAYS = 140;
+const LS_KEY = 'mmzgz-estado-v1';
+const ACT_TYPES = ['Gimnasio','Gimnasio en casa','Bici','Natación','Caminar','Estiramientos / movilidad','Otra'];
+const ICON_OK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const ICON_SKIP = '<svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg>';
+
+function logo(size, withText){
+  return `<svg class="logo" width="${size}" height="${size}" viewBox="0 0 64 64" role="img" aria-label="Logo Entrenador Gon">
+    <defs><linearGradient id="lg${size}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC21A"/><stop offset=".5" stop-color="#F27A12"/><stop offset="1" stop-color="#C8241F"/></linearGradient></defs>
+    <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#lg${size})"/>
+    <g fill="#FFF7E8"><circle cx="7.5" cy="7.5" r="1.8"/><circle cx="56.5" cy="7.5" r="1.8"/><circle cx="7.5" cy="56.5" r="1.8"/><circle cx="56.5" cy="56.5" r="1.8"/></g>
+    <g fill="none" stroke="#2B1810" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 ${withText ? -5 : 0})">
+      <circle cx="38" cy="13" r="4.6" fill="#2B1810" stroke="none"/>
+      <path d="M35 20 L29 35"/>
+      <path d="M34 22 L41 28 L47 25"/>
+      <path d="M33 22 L25 25 L21 31"/>
+      <path d="M29 35 L37 42 L34 52"/>
+      <path d="M29 35 L23 44 L14 45"/>
+    </g>
+    ${withText ? '<text x="32" y="58" text-anchor="middle" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="700" font-size="11" fill="#2B1810">21,1</text>' : ''}
+  </svg>`;
+}
+
+/* ---------- Estado ---------- */
+function defaultState(){ return {name:'', weekPlan:{}, logs:{}, extras:[], updatedAt:0}; }
+function normalize(s){ s = Object.assign(defaultState(), s); s.extras = (s.extras || []).map(e => Object.assign({status:'done'}, e)); return s; }
+let state = defaultState();
+try { const raw = localStorage.getItem(LS_KEY); if (raw) state = normalize(JSON.parse(raw)); } catch(e) {}
+const APP_VERSION = '1.0';
+
+function persistLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {} }
+function save(){
+  state.updatedAt = Date.now();
+  persistLocal();
+  render();
+}
+/* Pide al navegador que no borre los datos de la app por falta de espacio */
+async function persistStorage(){ try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch(e) {} }
+
+/* ---------- Fechas ---------- */
+function today(){ const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function dayDiff(a, b){ return Math.round((b - a) / 86400000); }
+function currentWeek(){ const n = Math.floor(dayDiff(START, today()) / 7) + 1; return Math.min(20, Math.max(1, n)); }
+function parseISO(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
+function isoOf(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+function fmtDay(d){ return d.toLocaleDateString('es-ES', {day:'numeric', month:'short'}).replace('.', ''); }
+function fmtShort(s){ return parseISO(s).toLocaleDateString('es-ES', {weekday:'short', day:'numeric'}).replace('.', ''); }
+function weekOfDate(s){ return Math.floor(dayDiff(START, parseISO(s)) / 7) + 1; }
+
+/* ---------- Plan ---------- */
+const W = n => PLAN.weeks[n-1];
+function planFor(n){ return state.weekPlan[n] || PLAN.meta.default_plan; }
+function sessionsOf(n){ return W(n).plans[planFor(n)]; }
+function key(n, plan, day){ return 'w' + n + '-' + plan + '-d' + day; }
+function logOf(n, s){ return state.logs[key(n, planFor(n), s.day)]; }
+function weekLocked(n){ return Object.keys(state.logs).some(k => k.startsWith('w' + n + '-')); }
+function zoneColor(z){ return 'var(--z-' + (z || 'free') + ')'; }
+function mainZone(s){
+  const order = ['intervalos','umbral','mm','controlado','largo','suave','rec'];
+  const zs = [];
+  (function walk(bs){ bs.forEach(b => { if (b.kind === 'repeat') walk([b.work, b.rest].filter(Boolean)); else if (b.kind === 'run' && b.zone) zs.push(b.zone); }); })(s.blocks);
+  for (const z of order) if (zs.includes(z)) return z;
+  return 'suave';
+}
+
+/* ---------- Formato ---------- */
+function esc(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function n2(x){ return String(x).replace('.', ','); }
+function fmtVal(v, unit){
+  if (unit === 'min' && !Number.isInteger(v)){ const m = Math.floor(v), s = Math.round((v - m) * 60); return m + ':' + String(s).padStart(2,'0'); }
+  return n2(v);
+}
+function fmtDur(d){
+  const u = {min:'min', s:'s', km:'km', m:'m'}[d.unit];
+  if (Array.isArray(d.value)) return fmtVal(d.value[0], d.unit) + '–' + fmtVal(d.value[1], d.unit) + ' ' + u;
+  if (d.unit === 'm' && d.value >= 1000) return n2(d.value / 1000) + ' km';
+  return fmtVal(d.value, d.unit) + ' ' + u;
+}
+function fmtPace(p){ return p ? p[0] + '–' + p[1] + ' /km' : ''; }
+function fmtRpe(r){ return r ? 'RPE ' + (r[0] === r[1] ? r[0] : r[0] + '–' + r[1]) : ''; }
+function fmtTime(sec){
+  sec = Math.max(0, Math.round(sec));
+  const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+  return (h ? h + ':' + String(m).padStart(2,'0') : m) + ':' + String(s).padStart(2,'0');
+}
+function fmtPaceSec(spk){ const m = Math.floor(spk / 60), s = Math.round(spk % 60); return m + ':' + String(s).padStart(2,'0') + ' /km'; }
+function bibNum(s){
+  if (s.type === 'carrera') return '21,1';
+  const b = s.blocks.find(b => b.kind === 'repeat' && b.work && b.work.zone && !b.optional);
+  if (b && s.type === 'calidad') return b.times + '×' + fmtDur(b.work.dur).replace(' ', '');
+  if (s.type === 'tirada'){ let km = 0; s.blocks.forEach(b => { if (b.kind === 'repeat') km += b.times * ((b.work.dur.value || 0) + (b.rest ? b.rest.dur.value : 0)); else if (b.dur.unit === 'km') km += Array.isArray(b.dur.value) ? b.dur.value[1] : b.dur.value; }); return n2(km) + ' km'; }
+  return fmtDur(s.blocks[0].dur).replace(' ', '');
+}
+
+/* ---------- UI general ---------- */
+let tab = 'hoy';
+const $app = document.getElementById('app');
+function toast(msg){
+  const h = document.getElementById('toastHost');
+  h.innerHTML = '<div class="toast" role="status">' + esc(msg) + '</div>';
+  clearTimeout(toast.t); toast.t = setTimeout(() => h.innerHTML = '', 2400);
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; render(); window.scrollTo(0, 0); }));
+
+function header(){
+  const d = Math.min(TOTAL_DAYS, Math.max(0, dayDiff(START, today()) + 1));
+  const left = dayDiff(today(), RACE);
+  return `<header class="head">
+    <div class="head-top">${logo(44)}
+      <div class="hello">Hola, ${esc(state.name)}</div>
+      <div class="count">${left > 0 ? `<b class="num">${left}</b><span>días</span>` : left === 0 ? '<b>¡Hoy!</b>' : '<b>Meta</b>'}</div>
+    </div>
+    <div class="bar" role="progressbar" aria-label="Avance del plan" aria-valuenow="${d}" aria-valuemax="${TOTAL_DAYS}"><span style="width:${d / TOTAL_DAYS * 100}%"></span></div>
+    <div class="bar-row"><span>Semana ${currentWeek()} de 20</span><span class="num">${Math.round(d / TOTAL_DAYS * 100)} %</span></div>
+  </header>`;
+}
+
+function stateIcon(status){
+  if (status === 'done') return `<span class="state ok" aria-label="Completada">${ICON_OK}</span>`;
+  if (status === 'skipped') return `<span class="state skip" aria-label="Saltada">${ICON_SKIP}</span>`;
+  return '<span class="state" aria-label="Pendiente"></span>';
+}
+function sessionRow(n, s){
+  const l = logOf(n, s);
+  return `<button class="srow" data-open="${n}:${s.day}">
+    <span class="stripe" style="background:${zoneColor(mainZone(s))}"></span>
+    <span class="s-main"><span class="s-day">Día ${s.day}</span><span class="s-title">${esc(s.title)}${s.optional ? ' <span class="s-sub">(opcional)</span>' : ''}</span></span>
+    ${stateIcon(l && l.status)}
+  </button>`;
+}
+function extraRow(e){
+  const done = e.status === 'done';
+  return `<div class="srow extra-row" data-extra="${e.id}" role="button" tabindex="0">
+    <span class="stripe"></span>
+    <span class="s-main"><span class="s-day">${fmtShort(e.date)}</span><span class="s-title">${esc(e.type)}</span>${e.mins ? `<span class="s-sub">${e.mins} min</span>` : ''}</span>
+    <button class="state ${done ? 'ok' : ''}" data-xtoggle="${e.id}" aria-label="${done ? 'Marcar como pendiente' : 'Marcar como completada'}">${done ? ICON_OK : ''}</button>
+  </div>`;
+}
+function planToggle(n){
+  const p = planFor(n), lock = weekLocked(n);
+  return `<div class="seg ${lock ? 'locked' : ''}" role="group" aria-label="Versión de la semana ${n}" ${lock ? 'title="Fijada: ya hay sesiones registradas esta semana"' : ''}>
+    <button data-plan="${n}:3d" aria-pressed="${p === '3d'}" ${lock ? 'disabled' : ''}>3 días</button>
+    <button data-plan="${n}:2d" aria-pressed="${p === '2d'}" ${lock ? 'disabled' : ''}>2 días</button>
+  </div>`;
+}
+function extrasOfWeek(n){ return state.extras.filter(e => weekOfDate(e.date) === n).sort((a, b) => a.date.localeCompare(b.date)); }
+function weekList(n, extras){
+  return `<div class="sessions">${sessionsOf(n).map(s => sessionRow(n, s)).join('')}${extras.map(extraRow).join('')}</div>`;
+}
+
+/* ---------- Pestaña Hoy ---------- */
+function nextSession(){
+  for (let n = currentWeek(); n <= 20; n++){
+    const s = sessionsOf(n).find(s => !logOf(n, s));
+    if (s) return {n, s};
+  }
+  return null;
+}
+function viewHoy(){
+  const wk = currentWeek(), nx = nextSession();
+  const pins = '<span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span><span class="pin p4"></span>';
+  const bib = !nx
+    ? `<div class="bib">${pins}<div class="bib-label">Plan terminado</div><div class="bib-num">✓</div><div class="bib-title">Todas las sesiones registradas</div></div>`
+    : `<div class="bib">${pins}
+        <div class="bib-label">${nx.n !== wk ? 'Semana ' + nx.n : 'Próxima sesión'}</div>
+        <div class="bib-num">${esc(bibNum(nx.s))}</div>
+        <div class="bib-title">${esc(nx.s.title)}</div>
+        <button class="btn" data-open="${nx.n}:${nx.s.day}">Ver sesión</button>
+      </div>`;
+  const extras = state.extras.filter(e => weekOfDate(e.date) === wk || (e.status !== 'done' && e.date >= isoOf(today())))
+    .filter((e, i, a) => a.indexOf(e) === i).sort((a, b) => a.date.localeCompare(b.date));
+  return header() + bib + `
+    <section class="section">
+      <div class="sec-head"><h2 class="sec-title">Semana ${wk}</h2>${planToggle(wk)}</div>
+      ${weekList(wk, extras)}
+      <div><button class="btn small ghost" data-extra="new">+ Actividad</button></div>
+    </section>`;
+}
+
+/* ---------- Pestaña Plan ---------- */
+const openWeeks = new Set([currentWeek()]);
+function range(a, b){ const r = []; for (let i = a; i <= b; i++) r.push(i); return r; }
+function viewPlan(){
+  const wk = currentWeek();
+  let km = 0, done = 0;
+  range(1, 20).forEach(n => sessionsOf(n).forEach(s => { const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += +l.km || 0; } }));
+  return header() + `
+    <div class="totals"><span><b class="num">${n2(Math.round(km * 10) / 10)}</b>km</span><span><b class="num">${done}</b>completadas</span></div>
+    ` + PLAN.phases.map(ph => `
+    <section class="month">
+      <div class="month-h"><span class="m">MES ${ph.month}</span><span class="n">${esc(ph.name)}</span></div>
+      ${range(ph.weeks[0], ph.weeks[1]).map(n => {
+        const dots = sessionsOf(n).map(s => { const l = logOf(n, s); return `<i class="${l ? (l.status === 'done' ? 'ok' : 'skip') : ''}"></i>`; }).join('');
+        return `<details class="week ${n === wk ? 'current' : ''}" data-week="${n}" ${openWeeks.has(n) ? 'open' : ''}>
+          <summary><span class="wk-n">S${n}</span><span class="wk-dates">${fmtDay(parseISO(W(n).start))} – ${fmtDay(parseISO(W(n).end))}</span><span class="dots">${dots}</span></summary>
+          <div class="wk-body"><div>${planToggle(n)}</div>${weekList(n, extrasOfWeek(n))}</div>
+        </details>`; }).join('')}
+    </section>`).join('');
+}
+
+/* ---------- Pestaña Dorsal ---------- */
+function legendHTML(){
+  return `<div class="zones">${Object.entries(PLAN.zones).map(([id, z]) => `<div class="zone"><span class="stripe" style="background:${zoneColor(id)}"></span>
+      <span>${esc(z.name)}</span><span class="pace">${z.pace[0]}–${z.pace[1]}</span><span class="rpe">${fmtRpe(z.rpe)}</span></div>`).join('')}</div>
+    <div class="zones">${PLAN.rpe_scale.map(r => `<div class="zone" style="grid-template-columns:5px 56px 1fr"><span class="stripe" style="background:var(--surface-2)"></span>
+      <span class="mono">${r.range[0] === r.range[1] ? r.range[0] : r.range[0] + '–' + r.range[1]}</span><span>${esc(r.label)}</span></div>`).join('')}</div>
+    <p class="note">RPE: esfuerzo percibido de 0 a 10. Ritmo objetivo de carrera 5:05–5:15 /km (1 h 47 – 1 h 51). Son ritmos orientativos; si un día no salen, guíate por el RPE.</p>`;
+}
+function viewDorsal(){
+  return header() + `
+    <section class="section"><h2 class="sec-title">Tu nombre</h2>
+      <div style="display:flex;gap:8px"><input class="input" id="setName" aria-label="Tu nombre" value="${esc(state.name)}" maxlength="30"><button class="btn primary" id="saveName">Guardar</button></div>
+    </section>
+    <section class="section"><h2 class="sec-title">Leyenda</h2>${legendHTML()}</section>
+    <section class="section"><h2 class="sec-title">Tus datos</h2>
+      <div class="card">
+        <p class="note" style="margin:0">Se guardan solo en este móvil. Descarga una copia de vez en cuando por si cambias de teléfono o borras la app.</p>
+        <div class="actions"><button class="btn" id="dlBackup">Descargar copia</button><button class="btn" id="copyBackup">Copiar como texto</button></div>
+        <div class="actions"><label class="btn" for="fileBackup" style="text-align:center;flex:1 1 140px">Importar archivo</label><input type="file" id="fileBackup" accept=".json,application/json,text/plain" hidden></div>
+        <details class="orig"><summary>Restaurar pegando texto</summary>
+          <div class="field" style="margin-top:8px"><textarea class="input mono" id="restoreTxt" aria-label="Copia de seguridad en texto" style="font-size:12px"></textarea></div>
+          <div class="actions" style="margin-top:8px"><button class="btn" id="restoreBtn">Restaurar copia</button></div>
+        </details>
+        <div id="restoreMsg" class="note"></div>
+        <div class="actions"><button class="btn danger" id="resetBtn">Borrar todo</button></div>
+      </div>
+    </section>
+    <p class="version">Entrenador Gon · versión ${APP_VERSION}</p>`;
+}
+
+/* ---------- Copias de seguridad ---------- */
+function restoreFrom(txt){
+  let obj; try { obj = JSON.parse(txt); } catch(e){ return 'Eso no es una copia válida. Asegúrate de copiarla entera, incluidas las llaves { }.'; }
+  if (!obj || typeof obj !== 'object' || !obj.logs) return 'Eso no parece una copia de esta app.';
+  state = normalize(obj); if (!state.name) state.name = 'corredor'; save(); toast('Copia restaurada');
+  return true;
+}
+
+/* ---------- Bienvenida ---------- */
+function viewWelcome(){
+  return `<div class="welcome">
+    ${logo(96, true)}
+    <div class="label" style="color:var(--accent);font-size:13px">Entrenador Gon</div>
+    <h1>20 semanas hasta la meta</h1>
+    <p class="muted" style="margin:0">Media Maratón de Zaragoza · 14 de marzo de 2027</p>
+    <div class="field"><label for="welName">¿Cómo te llamas?</label><input class="input" id="welName" maxlength="30" autocomplete="given-name" placeholder="Tu nombre"></div>
+    <button class="btn primary" id="welGo">Empezar</button>
+    <details class="orig"><summary>Ya tengo datos guardados (copia de seguridad)</summary>
+      <div class="field" style="margin-top:8px"><textarea class="input mono" id="welRestore" aria-label="Copia de seguridad" placeholder="Pega aquí la copia" style="font-size:12px"></textarea></div>
+      <div class="actions" style="margin-top:8px"><button class="btn" id="welRestoreBtn">Restaurar</button><label class="btn" for="welFile" style="text-align:center;flex:1 1 140px">Importar archivo</label><input type="file" id="welFile" accept=".json,application/json,text/plain" hidden></div>
+      <p class="note" id="welMsg"></p>
+    </details>
+  </div>`;
+}
+
+/* ---------- Render ---------- */
+function render(){
+  const tabs = document.getElementById('tabs');
+  if (!state.name){ tabs.hidden = true; $app.innerHTML = viewWelcome(); bindWelcome(); return; }
+  tabs.hidden = false;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  $app.innerHTML = ({hoy:viewHoy, plan:viewPlan, dorsal:viewDorsal})[tab]();
+  if (tab === 'dorsal') bindDorsal();
+}
+function bindWelcome(){
+  const go = () => { const v = document.getElementById('welName').value.trim(); if (!v){ document.getElementById('welName').focus(); return; } state.name = v; save(); };
+  document.getElementById('welGo').onclick = go;
+  document.getElementById('welName').onkeydown = e => { if (e.key === 'Enter') go(); };
+  const wm = document.getElementById('welMsg');
+  document.getElementById('welRestoreBtn').onclick = () => { const r = restoreFrom(document.getElementById('welRestore').value); if (r !== true) wm.textContent = r; };
+  document.getElementById('welFile').onchange = async e => { const f = e.target.files[0]; if (!f) return; const r = restoreFrom(await f.text()); if (r !== true) wm.textContent = r; };
+}
+function bindDorsal(){
+  document.getElementById('saveName').onclick = () => { const v = document.getElementById('setName').value.trim(); if (v){ state.name = v; save(); toast('Nombre guardado'); } };
+  document.getElementById('copyBackup').onclick = async () => {
+    const txt = JSON.stringify(state);
+    try { await navigator.clipboard.writeText(txt); toast('Copia guardada en el portapapeles'); }
+    catch(e){ const t = document.getElementById('restoreTxt'); t.value = txt; t.select(); toast('Selecciona el texto y cópialo'); }
+  };
+  document.getElementById('dlBackup').onclick = () => {
+    const blob = new Blob([JSON.stringify(state, null, 1)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'entrenador-gon-copia-' + isoOf(today()) + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  const msg = document.getElementById('restoreMsg');
+  document.getElementById('fileBackup').onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = restoreFrom(await f.text());
+    msg.textContent = r === true ? '' : r; e.target.value = '';
+  };
+  const rb = document.getElementById('restoreBtn');
+  rb.onclick = () => {
+    if (rb.dataset.armed !== '1'){ rb.dataset.armed = '1'; rb.textContent = 'Pulsa otra vez: sustituirá tus datos'; return; }
+    const r = restoreFrom(document.getElementById('restoreTxt').value);
+    if (r !== true){ msg.textContent = r; rb.dataset.armed = ''; rb.textContent = 'Restaurar copia'; }
+  };
+  const rs = document.getElementById('resetBtn');
+  rs.onclick = () => {
+    if (rs.dataset.armed !== '1'){ rs.dataset.armed = '1'; rs.textContent = 'Pulsa otra vez para borrar'; return; }
+    const name = state.name; state = defaultState(); state.name = name; save(); toast('Datos borrados');
+  };
+}
+
+/* ---------- Delegación de clics ---------- */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-xtoggle],[data-plan],[data-open],[data-timer],[data-extra],[data-legend]');
+  if (!t) return;
+  if (t.dataset.xtoggle){ e.stopPropagation(); const x = state.extras.find(x => x.id === t.dataset.xtoggle); if (x){ x.status = x.status === 'done' ? 'pending' : 'done'; save(); toast(x.status === 'done' ? 'Actividad completada' : 'Actividad pendiente'); } return; }
+  if (t.dataset.plan){ const [n, p] = t.dataset.plan.split(':'); if (!weekLocked(+n)){ state.weekPlan[n] = p; save(); } return; }
+  if (t.dataset.timer){ const [n, d] = t.dataset.timer.split(':').map(Number); closeSheet(); startTimer(n, sessionsOf(n).find(s => s.day === d)); return; }
+  if (t.dataset.legend){ showSheet(`<div class="sheet-h"><h2>Leyenda</h2><button class="x" aria-label="Cerrar">✕</button></div>${legendHTML()}`); return; }
+  if (t.dataset.open){ const [n, d] = t.dataset.open.split(':').map(Number); openSession(n, d); return; }
+  if (t.dataset.extra){ openExtra(t.dataset.extra); return; }
+});
+document.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.extra-row')){ e.preventDefault(); openExtra(e.target.dataset.extra); } });
+document.addEventListener('toggle', e => {
+  const d = e.target; if (d.matches && d.matches('details.week')){ const n = +d.dataset.week; d.open ? openWeeks.add(n) : openWeeks.delete(n); }
+}, true);
+
+/* ---------- Hojas ---------- */
+function closeSheet(){ document.getElementById('sheetHost').innerHTML = ''; }
+function showSheet(html, bind){
+  const host = document.getElementById('sheetHost');
+  host.innerHTML = `<div class="scrim" id="scrim"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+  document.getElementById('scrim').addEventListener('click', e => { if (e.target.id === 'scrim' || e.target.closest('.x')) closeSheet(); });
+  if (bind) bind();
+}
+function blockRow(b, role){
+  const label = b.kind === 'warmup' ? 'Calentamiento' : b.kind === 'cooldown' ? 'Vuelta a la calma' : role === 'work' ? 'Trabajo' : role === 'rest' ? 'Recuperación' : (b.zone ? PLAN.zones[b.zone].name : 'Bloque');
+  const det = [b.pace ? `<span class="mono">${fmtPace(b.pace)}</span>` : '', fmtRpe(b.rpe), b.note ? esc(b.note) : ''].filter(Boolean).join(' · ');
+  return `<div class="blk"><span class="stripe" style="background:${zoneColor(b.zone)}"></span><div><div class="t">${fmtDur(b.dur)} · ${label}</div>${det ? `<div class="d">${det}</div>` : ''}</div></div>`;
+}
+function blocksHTML(bs){
+  return bs.map(b => b.kind === 'repeat'
+    ? `<div class="rep"><div class="rep-h">${b.times} repeticiones${b.optional ? ' <span class="chip">Opcional</span>' : ''}</div>${blockRow(b.work, 'work')}${b.rest ? blockRow(b.rest, 'rest') : ''}</div>`
+    : blockRow(b)).join('');
+}
+function openSession(n, day){
+  const s = sessionsOf(n).find(x => x.day === day); if (!s) return;
+  const l = logOf(n, s);
+  showSheet(`
+    <div class="sheet-h"><div><div class="label">Semana ${n} · Día ${s.day}</div><h2>${esc(s.title)}</h2></div>
+      <div class="tools"><button class="x" data-legend="1" aria-label="Ver leyenda">i</button><button class="x" aria-label="Cerrar">✕</button></div></div>
+    ${l ? `<div>${l.status === 'done' ? '<span class="chip ok">Completada</span>' : '<span class="chip skip">Saltada</span>'} <span class="muted" style="font-size:13.5px">${fmtShort(l.date)}${l.km ? ' · ' + n2(l.km) + ' km' : ''}${l.secs ? ' · ' + fmtTime(l.secs) : ''}${l.km && l.secs ? ' · ' + fmtPaceSec(l.secs / l.km) : ''}${l.rpe ? ' · RPE ' + l.rpe : ''}</span></div>` : ''}
+    <div class="blocks">${blocksHTML(s.blocks)}</div>
+    <details class="orig"><summary>Ver texto del plan</summary><p>${esc(s.text)}</p></details>
+    <div class="actions">
+      ${hasTimer(s) ? `<button class="btn" data-timer="${n}:${s.day}">Temporizador</button>` : ''}
+      <button class="btn primary" id="logBtn">${l ? 'Editar registro' : 'Registrar'}</button>
+    </div>`, () => { document.getElementById('logBtn').onclick = () => openLog(n, s); });
+}
+function openLog(n, s, prefillSecs){
+  const k = key(n, planFor(n), s.day);
+  const l = state.logs[k] || {status:'done', date:isoOf(today()), rpe:0};
+  const secs = prefillSecs != null ? Math.round(prefillSecs) : (l.secs || 0);
+  const h = Math.floor(secs / 3600), m = Math.floor(secs % 3600 / 60), sc = secs % 60;
+  showSheet(`
+    <div class="sheet-h"><div><div class="label">Semana ${n} · Día ${s.day}</div><h2>${esc(s.title)}</h2></div><button class="x" aria-label="Cerrar">✕</button></div>
+    <div class="seg" role="group" aria-label="Estado" style="align-self:flex-start">
+      <button id="stDone" aria-pressed="${l.status === 'done'}">Completada</button><button id="stSkip" aria-pressed="${l.status === 'skipped'}">Saltada</button>
+    </div>
+    <div class="field"><label for="lgDate">Fecha</label><input class="input" type="date" id="lgDate" value="${l.date}"></div>
+    <div id="doneFields" ${l.status === 'skipped' ? 'hidden' : ''} style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label for="lgKm">Distancia (km)</label><input class="input num" id="lgKm" inputmode="decimal" placeholder="ej. 8,5" value="${l.km ? n2(l.km) : ''}"></div>
+      <div class="field"><label>Tiempo</label><div class="row3">
+        <input class="input num" id="lgH" inputmode="numeric" placeholder="h" aria-label="Horas" value="${h || ''}">
+        <input class="input num" id="lgM" inputmode="numeric" placeholder="min" aria-label="Minutos" value="${secs ? m : ''}">
+        <input class="input num" id="lgS" inputmode="numeric" placeholder="s" aria-label="Segundos" value="${secs ? sc : ''}"></div></div>
+      <div class="calc" id="lgPace"></div>
+      <div class="field"><label for="lgRpe">Esfuerzo (RPE): <span class="rpe-out" id="lgRpeOut">${l.rpe || '–'}</span></label>
+        <input type="range" id="lgRpe" min="0" max="10" step="1" value="${l.rpe || 0}"></div>
+    </div>
+    <div class="field"><label for="lgNotes">Notas</label><textarea class="input" id="lgNotes" placeholder="Sensaciones, molestias, tiempo que hacía…">${esc(l.notes || '')}</textarea></div>
+    <div class="actions">${state.logs[k] ? '<button class="btn danger" id="lgDel">Borrar registro</button>' : ''}<button class="btn primary" id="lgSave">Guardar</button></div>
+  `, () => {
+    let status = l.status;
+    const $ = id => document.getElementById(id);
+    const setSt = st => { status = st; $('stDone').setAttribute('aria-pressed', st === 'done'); $('stSkip').setAttribute('aria-pressed', st === 'skipped'); $('doneFields').hidden = st === 'skipped'; };
+    $('stDone').onclick = () => setSt('done'); $('stSkip').onclick = () => setSt('skipped');
+    const read = () => { const km = parseFloat(($('lgKm').value || '').replace(',', '.')) || 0; const t = (+$('lgH').value || 0) * 3600 + (+$('lgM').value || 0) * 60 + (+$('lgS').value || 0); return {km, t}; };
+    const upd = () => { const {km, t} = read(); $('lgPace').innerHTML = km > 0 && t > 0 ? 'Ritmo medio: <b>' + fmtPaceSec(t / km) + '</b>' : ''; };
+    ['lgKm','lgH','lgM','lgS'].forEach(id => $(id).addEventListener('input', upd)); upd();
+    $('lgRpe').addEventListener('input', e => $('lgRpeOut').textContent = +e.target.value || '–');
+    $('lgSave').onclick = () => {
+      const {km, t} = read();
+      const rec = {status, date:$('lgDate').value || isoOf(today()), notes:$('lgNotes').value.trim()};
+      if (status === 'done'){ if (km) rec.km = Math.round(km * 100) / 100; if (t) rec.secs = t; const r = +$('lgRpe').value; if (r) rec.rpe = r; }
+      state.logs[k] = rec; save(); closeSheet(); toast(status === 'done' ? '¡Sesión completada!' : 'Sesión saltada');
+    };
+    if ($('lgDel')) $('lgDel').onclick = e => { const b = e.currentTarget; if (b.dataset.armed !== '1'){ b.dataset.armed = '1'; b.textContent = 'Pulsa otra vez para borrar'; return; } delete state.logs[k]; save(); closeSheet(); toast('Registro borrado'); };
+  });
+}
+function openExtra(id){
+  const isNew = id === 'new';
+  const e = isNew ? {id:'a' + Date.now(), type:'Gimnasio', date:isoOf(today()), mins:'', rpe:0, notes:'', status:'pending'} : state.extras.find(x => x.id === id);
+  if (!e) return;
+  showSheet(`
+    <div class="sheet-h"><div><div class="label">Fuera del plan</div><h2>${isNew ? 'Nueva actividad' : 'Actividad'}</h2></div><button class="x" aria-label="Cerrar">✕</button></div>
+    <div class="seg" role="group" aria-label="Estado" style="align-self:flex-start">
+      <button id="exDone" aria-pressed="${e.status === 'done'}">Completada</button><button id="exPend" aria-pressed="${e.status !== 'done'}">Pendiente</button>
+    </div>
+    <div class="field"><label for="exType">Tipo</label><select class="input" id="exType">${ACT_TYPES.map(t => `<option ${t === e.type ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+    <div class="row2"><div class="field"><label for="exDate">Fecha</label><input class="input" type="date" id="exDate" value="${e.date}"></div>
+      <div class="field"><label for="exMins">Duración (min)</label><input class="input num" id="exMins" inputmode="numeric" value="${e.mins || ''}"></div></div>
+    <div class="field"><label for="exRpe">Esfuerzo (RPE): <span class="rpe-out" id="exRpeOut">${e.rpe || '–'}</span></label><input type="range" id="exRpe" min="0" max="10" value="${e.rpe || 0}"></div>
+    <div class="field"><label for="exNotes">Notas</label><textarea class="input" id="exNotes" placeholder="Pierna, core, rutina en casa…">${esc(e.notes || '')}</textarea></div>
+    <div class="actions">${isNew ? '' : '<button class="btn danger" id="exDel">Borrar</button>'}<button class="btn primary" id="exSave">Guardar</button></div>
+  `, () => {
+    const $ = id => document.getElementById(id);
+    let status = e.status === 'done' ? 'done' : 'pending';
+    const setSt = st => { status = st; $('exDone').setAttribute('aria-pressed', st === 'done'); $('exPend').setAttribute('aria-pressed', st !== 'done'); };
+    $('exDone').onclick = () => setSt('done'); $('exPend').onclick = () => setSt('pending');
+    $('exRpe').addEventListener('input', ev => $('exRpeOut').textContent = +ev.target.value || '–');
+    $('exSave').onclick = () => {
+      const rec = {id:e.id, status, type:$('exType').value, date:$('exDate').value || isoOf(today()), mins:+$('exMins').value || 0, rpe:+$('exRpe').value || 0, notes:$('exNotes').value.trim()};
+      const i = state.extras.findIndex(x => x.id === e.id);
+      if (i >= 0) state.extras[i] = rec; else state.extras.push(rec);
+      save(); closeSheet(); toast('Actividad guardada');
+    };
+    if ($('exDel')) $('exDel').onclick = ev => { const b = ev.currentTarget; if (b.dataset.armed !== '1'){ b.dataset.armed = '1'; b.textContent = 'Pulsa otra vez para borrar'; return; } state.extras = state.extras.filter(x => x.id !== e.id); save(); closeSheet(); toast('Actividad borrada'); };
+  });
+}
+
+/* ---------- Temporizador ---------- */
+function toSecs(d, role){
+  const v = Array.isArray(d.value) ? (role === 'rest' ? d.value[1] : d.value[0]) : d.value;
+  if (d.unit === 'min') return v * 60;
+  if (d.unit === 's') return v;
+  return null;
+}
+function buildSteps(s){
+  const steps = [];
+  const mk = (b, role, rep, of) => ({
+    label: b.kind === 'warmup' ? 'Calentamiento' : b.kind === 'cooldown' ? 'Vuelta a la calma' : role === 'work' ? 'Fuerte' : role === 'rest' ? 'Recupera' : (b.zone ? PLAN.zones[b.zone].name : 'Corre'),
+    secs: toSecs(b.dur, role), durTxt: fmtDur(b.dur), pace: b.pace, rpe: b.rpe, zone: b.zone, note: b.note, rep, of, role
+  });
+  s.blocks.forEach((b, bi) => {
+    if (b.kind === 'repeat'){
+      for (let i = 1; i <= b.times; i++){
+        steps.push(mk(b.work, 'work', i, b.times));
+        const last = i === b.times;
+        if (b.rest && !(last && bi < s.blocks.length - 1 && s.blocks[bi + 1].kind === 'cooldown')) steps.push(mk(b.rest, 'rest', i, b.times));
+      }
+    } else steps.push(mk(b, null));
+  });
+  return steps;
+}
+function hasTimer(s){ return s.type !== 'carrera' && buildSteps(s).some(st => st.secs) && s.blocks.some(b => b.kind === 'repeat' || b.kind === 'warmup'); }
+
+let T = null;
+function startTimer(n, s){ T = {n, s, steps:buildSteps(s), i:-1, running:false, remaining:0, stepStart:0, endAt:0, elapsed:0, lastTick:0, iv:null, ac:null, wake:null, finished:false}; renderTimer(); }
+function audio(){ try { if (!T.ac) T.ac = new (window.AudioContext || window.webkitAudioContext)(); if (T.ac.state === 'suspended') T.ac.resume(); } catch(e) {} }
+function beep(freq, ms, when){
+  try { if (!T.ac) return; const o = T.ac.createOscillator(), g = T.ac.createGain(); o.frequency.value = freq; o.type = 'square';
+    const t0 = T.ac.currentTime + (when || 0); g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.25, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + ms / 1000);
+    o.connect(g); g.connect(T.ac.destination); o.start(t0); o.stop(t0 + ms / 1000 + 0.02); } catch(e) {}
+}
+function buzz(p){ try { navigator.vibrate && navigator.vibrate(p); } catch(e) {} }
+async function lockScreen(){ try { if (navigator.wakeLock) T.wake = await navigator.wakeLock.request('screen'); } catch(e) {} }
+function goStep(i){
+  T.i = i;
+  if (i >= T.steps.length){ finishTimer(); return; }
+  const st = T.steps[i];
+  T.stepStart = Date.now(); T.remaining = st.secs ? st.secs * 1000 : 0; T.endAt = st.secs ? Date.now() + T.remaining : 0;
+  if (i > 0){ beep(st.role === 'work' ? 1046 : 660, 450); buzz(st.role === 'work' ? [300, 120, 300] : [500]); }
+  T.lastBeep = null; renderTimer();
+}
+function tick(){
+  if (!T || !T.running) return;
+  const now = Date.now(); T.elapsed += now - T.lastTick; T.lastTick = now;
+  const st = T.steps[T.i];
+  if (st && st.secs){
+    T.remaining = T.endAt - now;
+    const s = Math.ceil(T.remaining / 1000);
+    if (s <= 3 && s >= 1 && T.lastBeep !== s){ T.lastBeep = s; beep(880, 120); }
+    if (T.remaining <= 0){ goStep(T.i + 1); return; }
+  }
+  updateClock();
+}
+function play(){
+  audio(); lockScreen(); T.running = true; T.lastTick = Date.now();
+  if (T.i < 0){ beep(1046, 300); goStep(0); }
+  else { const st = T.steps[T.i]; if (st && st.secs) T.endAt = Date.now() + T.remaining; renderTimer(); }
+  clearInterval(T.iv); T.iv = setInterval(tick, 200);
+}
+function pause(){ T.running = false; clearInterval(T.iv); renderTimer(); }
+function finishTimer(){ clearInterval(T.iv); T.running = false; T.finished = true; beep(1046, 200); beep(1318, 400, 0.25); buzz([200, 100, 200, 100, 400]); renderTimer(); }
+function closeTimer(){
+  if (T){ clearInterval(T.iv); try { T.wake && T.wake.release(); } catch(e) {} try { T.ac && T.ac.close(); } catch(e) {} }
+  T = null; document.getElementById('timerHost').innerHTML = '';
+}
+function updateClock(){
+  const c = document.getElementById('tClock'), tot = document.getElementById('tTot');
+  if (!c) return;
+  const st = T.steps[T.i];
+  if (st && st.secs) c.textContent = fmtTime(Math.ceil(Math.max(0, T.remaining) / 1000));
+  else if (st) c.textContent = fmtTime((Date.now() - T.stepStart) / 1000);
+  if (tot) tot.textContent = fmtTime(T.elapsed / 1000);
+}
+function renderTimer(){
+  const host = document.getElementById('timerHost');
+  const st = T.steps[T.i], nx = T.steps[T.i + 1];
+  let body;
+  if (T.finished){
+    body = `<div class="t-phase" style="border-color:var(--ok)"><div class="t-step">¡Terminado!</div><div class="t-clock">${fmtTime(T.elapsed / 1000)}</div></div>
+      <div class="actions"><button class="btn ghost" id="tClose">Cerrar</button><button class="btn primary" id="tLog">Registrar sesión</button></div>`;
+  } else if (T.i < 0){
+    body = `<div class="t-phase" style="border-color:var(--orange)"><div class="t-rep">${esc(T.s.title)}</div><div class="t-step">Preparado</div>
+      <div class="t-next">${T.steps.length} pasos. Pita 3 veces antes de cada cambio. Sube el volumen y deja esta pantalla abierta.</div></div>
+      <div class="t-ctrl" style="grid-template-columns:1fr 2fr"><button class="btn ghost" id="tClose">Salir</button><button class="btn primary" id="tPlay">Empezar</button></div>`;
+  } else {
+    const isManual = !st.secs;
+    body = `<div class="t-phase" style="border-color:${zoneColor(st.zone)}">
+        ${st.of ? `<div class="t-rep">${st.rep} de ${st.of}</div>` : ''}
+        <div class="t-step" style="color:${zoneColor(st.zone)}">${esc(st.label)}</div>
+        <div class="t-clock" id="tClock">0:00</div>
+        <div class="t-target">${isManual ? `<b>${esc(st.durTxt)}</b> · ` : ''}${st.pace ? `<span class="mono">${fmtPace(st.pace)}</span>` : ''}${st.rpe ? ' · ' + fmtRpe(st.rpe) : ''}</div>
+        ${isManual ? '<div class="t-next">Pulsa «Siguiente» al completar la distancia.</div>' : ''}
+        <div class="t-next">${nx ? 'Después: ' + esc(nx.label) + ' · ' + esc(nx.durTxt) : 'Último paso'}</div>
+      </div>
+      <div class="bar"><span style="width:${T.i / T.steps.length * 100}%"></span></div>
+      <div class="bar-row" style="margin-top:0"><span>Paso ${T.i + 1} de ${T.steps.length}</span><span>Total <span class="num" id="tTot"></span></span></div>
+      <div class="t-ctrl"><button class="btn ghost" id="tStop">Terminar</button>
+        <button class="btn ${T.running ? '' : 'primary'}" id="tPlay">${T.running ? 'Pausa' : 'Seguir'}</button>
+        <button class="btn ${isManual ? 'primary' : ''}" id="tNext">Siguiente</button></div>`;
+  }
+  host.innerHTML = `<div class="timer" role="dialog" aria-modal="true" aria-label="Temporizador"><div class="timer-top">${logo(32)}<span class="label">S${T.n} · Día ${T.s.day}${T.running ? '' : T.finished ? '' : ' · en pausa'}</span></div>${body}</div>`;
+  const $ = id => document.getElementById(id);
+  if ($('tPlay')) $('tPlay').onclick = () => T.running ? pause() : play();
+  if ($('tNext')) $('tNext').onclick = () => { audio(); if (!T.running){ T.running = true; T.lastTick = Date.now(); clearInterval(T.iv); T.iv = setInterval(tick, 200); } goStep(T.i + 1); };
+  if ($('tStop')) $('tStop').onclick = e => { const b = e.currentTarget; if (b.dataset.armed !== '1'){ b.dataset.armed = '1'; b.textContent = '¿Seguro?'; return; } finishTimer(); };
+  if ($('tClose')) $('tClose').onclick = closeTimer;
+  if ($('tLog')) $('tLog').onclick = () => { const n = T.n, s = T.s, secs = T.elapsed / 1000; closeTimer(); openLog(n, s, secs); };
+  updateClock();
+}
+document.addEventListener('visibilitychange', () => { if (T && T.running && document.visibilityState === 'visible'){ lockScreen(); tick(); } });
+
+/* ---------- App instalable: modo sin conexión y actualizaciones ---------- */
+function showUpdate(worker){
+  document.getElementById('updateHost').innerHTML = '<div class="update" role="status"><span>Hay una versión nueva</span><button class="btn primary" id="doUpdate">Actualizar</button></div>';
+  document.getElementById('doUpdate').onclick = () => worker.postMessage('activar');
+}
+if ('serviceWorker' in navigator){
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('sw.js');
+      if (reg.waiting && navigator.serviceWorker.controller) showUpdate(reg.waiting);
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        w && w.addEventListener('statechange', () => { if (w.state === 'installed' && navigator.serviceWorker.controller) showUpdate(w); });
+      });
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+    } catch(e) {}
+  });
+  let reloading = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloading){ reloading = true; location.reload(); } });
+}
+
+render();
+persistStorage();
+</script>
+</body>
+</html>
