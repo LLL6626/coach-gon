@@ -199,7 +199,7 @@ details.orig p{margin:8px 0 0;background:var(--bg);border-radius:10px;padding:10
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 .tabs::before{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;background:var(--grad)}
-.tabs-in{max-width:420px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.tabs-in{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 .tab{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:10px;font-size:12px;font-weight:600;color:var(--muted);min-height:50px}
 .tab svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .tab[aria-selected="true"]{color:var(--accent);background:var(--accent-soft)}
@@ -208,6 +208,22 @@ details.orig p{margin:8px 0 0;background:var(--bg);border-radius:10px;padding:10
 .welcome{min-height:72vh;display:flex;flex-direction:column;justify-content:center;gap:18px}
 .welcome h1{font-family:var(--f-display);font-size:46px;line-height:1}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:80;max-width:calc(100% - 32px)}
+/* Grupeta */
+.crew{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.mate{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-top:1px solid var(--line)}
+.mate:first-child{border-top:0}
+.mate .pos{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--muted);text-align:center}
+.mate .who{min-width:0;display:flex;flex-direction:column;gap:6px}
+.mate .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mate .nm .chip{margin-left:6px}
+.mate .meta{font-size:12.5px;color:var(--muted)}
+.mate .pct{font-family:var(--f-display);font-weight:700;font-size:26px;line-height:1}
+.mate.me{background:var(--accent-soft)}
+.mate.me .pos{color:var(--accent)}
+.anon{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:22px 18px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.anon h3{font-family:var(--f-display);font-size:24px}
+.share-q{display:flex;flex-direction:column;gap:12px}
+.share-q ul{margin:0;padding-left:20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:4px}
 .update{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:90;background:var(--ink);color:var(--bg);border-radius:12px;padding:8px 8px 8px 14px;display:flex;gap:10px;align-items:center;font-size:14px;max-width:calc(100% - 32px)}
 .update .btn{min-height:36px;padding:6px 12px}
 .version{font-size:12px;color:var(--muted);text-align:center}
@@ -222,6 +238,7 @@ details.orig p{margin:8px 0 0;background:var(--bg);border-radius:10px;padding:10
   <div class="tabs-in" role="tablist">
     <button class="tab" data-tab="hoy" role="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5"/></svg>Hoy</button>
     <button class="tab" data-tab="plan" role="tab"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Plan</button>
+    <button class="tab" data-tab="grupeta" role="tab"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.4"/><path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5"/><path d="M15 14.6c2.6-.4 4.6 1.2 5.4 4.4"/></svg>Grupeta</button>
     <button class="tab" data-tab="dorsal" role="tab"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="6.5" cy="8" r=".6"/><circle cx="17.5" cy="8" r=".6"/><circle cx="6.5" cy="16" r=".6"/><circle cx="17.5" cy="16" r=".6"/><path d="M9.5 10.5h5M9.5 13.5h5"/></svg>Dorsal</button>
   </div>
 </nav>
@@ -258,20 +275,115 @@ function logo(size, withText){
 }
 
 /* ---------- Estado ---------- */
-function defaultState(){ return {name:'', weekPlan:{}, logs:{}, extras:[], updatedAt:0}; }
-function normalize(s){ s = Object.assign(defaultState(), s); s.extras = (s.extras || []).map(e => Object.assign({status:'done'}, e)); return s; }
+function defaultState(){ return {name:'', weekPlan:{}, logs:{}, extras:[], updatedAt:0, share:{asked:false, enabled:false, uid:null, refresh:null}}; }
+function normalize(s){ s = Object.assign(defaultState(), s); s.share = Object.assign(defaultState().share, s.share || {}); s.extras = (s.extras || []).map(e => Object.assign({status:'done'}, e)); return s; }
 let state = defaultState();
 try { const raw = localStorage.getItem(LS_KEY); if (raw) state = normalize(JSON.parse(raw)); } catch(e) {}
-const APP_VERSION = '1.0';
+const APP_VERSION = '1.1';
 
 function persistLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {} }
 function save(){
   state.updatedAt = Date.now();
   persistLocal();
   render();
+  if (state.share.enabled) scheduleSync();
 }
 /* Pide al navegador que no borre los datos de la app por falta de espacio */
 async function persistStorage(){ try { if (navigator.storage && navigator.storage.persist && !(await navigator.storage.persisted())) await navigator.storage.persist(); } catch(e) {} }
+
+/* ---------- Grupeta (Supabase) ----------
+   Solo se comparten: nombre, % del plan completado, sesiones completadas y km.
+   RPE, tiempos, notas y actividades extra no salen del móvil. */
+const SB_URL = 'https://ziofqzmztbgakxflcfwu.supabase.co';
+const SB_KEY = 'sb_publishable_lyPr7WLSTy200pYSO8vC4A_qPL065Ne';
+let sb = {access:null, exp:0, syncTimer:null, syncing:false, again:false, crew:null, crewErr:'', loading:false};
+
+async function sbFetch(path, opts = {}){
+  const headers = Object.assign({apikey:SB_KEY, 'Content-Type':'application/json'}, opts.headers || {});
+  const res = await fetch(SB_URL + path, Object.assign({}, opts, {headers}));
+  const txt = await res.text();
+  let body = null; try { body = txt ? JSON.parse(txt) : null; } catch(e) {}
+  if (!res.ok){ const err = new Error((body && (body.msg || body.message || body.error_description)) || ('HTTP ' + res.status)); err.status = res.status; throw err; }
+  return body;
+}
+function takeSession(s){
+  sb.access = s.access_token; sb.exp = Date.now() + (s.expires_in || 3600) * 1000 - 60000;
+  state.share.uid = s.user.id; state.share.refresh = s.refresh_token; persistLocal();
+}
+async function signInAnon(){ takeSession(await sbFetch('/auth/v1/signup', {method:'POST', body:JSON.stringify({data:{}})})); }
+/* Una sola renovación a la vez, para no gastar dos veces el mismo token */
+function ensureSession(){
+  if (sb.access && Date.now() < sb.exp) return Promise.resolve();
+  if (!sb.pendingSession) sb.pendingSession = sbOpenSession().finally(() => { sb.pendingSession = null; });
+  return sb.pendingSession;
+}
+async function sbOpenSession(){
+  if (!state.share.uid){ await signInAnon(); return; }
+  /* Ya tiene identidad: se renueva y NUNCA se crea otra, para no salir repetido en la Grupeta */
+  if (!state.share.refresh) throw Object.assign(new Error('sin identidad'), {lost:true});
+  try { takeSession(await sbFetch('/auth/v1/token?grant_type=refresh_token', {method:'POST', body:JSON.stringify({refresh_token:state.share.refresh})})); }
+  catch(e){ if (e.status === 400 || e.status === 401 || e.status === 403) e.lost = true; throw e; }
+}
+/* Solo si su identidad ya no vale (p. ej. copia antigua restaurada): se avisa en la Grupeta */
+function identityLost(e){ if (e && e.lost){ sb.lost = true; if (tab === 'grupeta') render(); } }
+const auth = () => ({Authorization:'Bearer ' + sb.access});
+
+function progress(){
+  let total = 0, done = 0, km = 0;
+  for (let n = 1; n <= 20; n++) sessionsOf(n).forEach(s => { total++; const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += +l.km || 0; } });
+  return {pct: total ? Math.round(done / total * 1000) / 10 : 0, done, km: Math.round(km * 10) / 10};
+}
+async function pushShare(){
+  await ensureSession();
+  const p = progress();
+  await sbFetch('/rest/v1/grupeta?on_conflict=user_id', {method:'POST', headers:Object.assign(auth(), {Prefer:'resolution=merge-duplicates,return=minimal'}),
+    body:JSON.stringify({user_id:state.share.uid, nombre:state.name.slice(0, 30), porcentaje:p.pct, sesiones:p.done, km:p.km, actualizado:new Date().toISOString()})});
+}
+function scheduleSync(){ clearTimeout(sb.syncTimer); sb.syncTimer = setTimeout(syncNow, 800); }
+async function syncNow(){
+  if (!state.share.enabled || !navigator.onLine) return;
+  if (sb.syncing){ sb.again = true; return; }
+  sb.syncing = true;
+  try { await pushShare(); sb.lost = false; } catch(e) { identityLost(e); }
+  sb.syncing = false;
+  if (sb.again){ sb.again = false; syncNow(); }
+}
+async function loadCrew(){
+  if (!state.share.enabled) return;
+  sb.loading = true; sb.crewErr = '';
+  try {
+    await ensureSession();
+    sb.crew = await sbFetch('/rest/v1/grupeta?select=user_id,nombre,porcentaje,sesiones,km,actualizado&order=porcentaje.desc,km.desc', {headers:auth()});
+  } catch(e){ identityLost(e); sb.crewErr = navigator.onLine ? 'No se ha podido cargar la Grupeta. Inténtalo en un rato.' : 'Sin conexión. Conéctate para ver los avances de la Grupeta.'; }
+  sb.loading = false;
+  if (tab === 'grupeta') render();
+}
+async function startSharing(fresh){
+  const wasAnon = !state.share.enabled;
+  state.share.asked = true; state.share.enabled = true;
+  if (fresh){ state.share.uid = null; state.share.refresh = null; sb.access = null; sb.lost = false; }
+  persistLocal();
+  try { await pushShare(); sb.lost = false; toast('Ya compartes tus avances'); }
+  catch(e){
+    /* venía de modo anónimo, así que no tiene fila en la Grupeta: es seguro empezar con identidad nueva */
+    if (e.lost && wasAnon && !fresh) return startSharing(true);
+    identityLost(e); toast(navigator.onLine ? 'Se compartirá en cuanto sea posible' : 'Se compartirá cuando tengas conexión'); }
+  save(); loadCrew();
+}
+async function stopSharing(){
+  if (!navigator.onLine){ toast('Necesitas conexión para borrar tus datos de la Grupeta'); return false; }
+  try {
+    await ensureSession();
+    await sbFetch('/rest/v1/grupeta?user_id=eq.' + encodeURIComponent(state.share.uid), {method:'DELETE', headers:Object.assign(auth(), {Prefer:'return=minimal'})});
+  } catch(e){
+    if (!e.lost){ toast('No se han podido borrar tus datos. Inténtalo de nuevo.'); return false; }
+    /* identidad perdida: no se puede borrar desde aquí; se pasa a anónimo igualmente */
+  }
+  state.share.enabled = false; state.share.asked = true; sb.crew = null; save(); toast('Modo anónimo: tus datos se han borrado de la Grupeta');
+  return true;
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && state.share.enabled) syncNow(); });
+window.addEventListener('online', () => { if (state.share.enabled){ syncNow(); if (tab === 'grupeta') loadCrew(); } });
 
 /* ---------- Fechas ---------- */
 function today(){ const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -336,7 +448,7 @@ function toast(msg){
   h.innerHTML = '<div class="toast" role="status">' + esc(msg) + '</div>';
   clearTimeout(toast.t); toast.t = setTimeout(() => h.innerHTML = '', 2400);
 }
-document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; render(); window.scrollTo(0, 0); }));
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { tab = b.dataset.tab; sb.offArmed = false; render(); window.scrollTo(0, 0); if (tab === 'grupeta' && state.share.enabled){ syncNow(); loadCrew(); } }));
 
 function header(){
   const d = Math.min(TOTAL_DAYS, Math.max(0, dayDiff(START, today()) + 1));
@@ -464,6 +576,72 @@ function viewDorsal(){
     <p class="version">Entrenador Gon · versión ${APP_VERSION}</p>`;
 }
 
+/* ---------- Pestaña Grupeta ---------- */
+const SHARE_NOTE = 'Mientras compartes, tu nombre, el % del plan completado, tus sesiones completadas y tus km se actualizan cada vez que tienes conexión. El RPE, los tiempos, las notas y las actividades extra no salen de tu móvil.';
+function ago(iso){
+  const m = Math.round((Date.now() - new Date(iso)) / 60000);
+  if (m < 2) return 'ahora'; if (m < 60) return 'hace ' + m + ' min';
+  const h = Math.round(m / 60); if (h < 24) return 'hace ' + h + ' h';
+  const d = Math.round(h / 24); return 'hace ' + d + (d === 1 ? ' día' : ' días');
+}
+function viewGrupeta(){
+  if (!state.share.enabled){
+    return header() + `
+      <div class="anon">
+        <h3>Estás en modo anónimo</h3>
+        <p class="note" style="margin:0">Tus avances solo están en tu móvil y no puedes ver los de los demás. Si compartes, verás aquí cómo va toda la grupeta y ellos verán cómo vas tú.</p>
+        <p class="note" style="margin:0">${SHARE_NOTE}</p>
+        <button class="btn primary" id="shareOn">Compartir mis avances</button>
+      </div>`;
+  }
+  let list;
+  if (sb.crew && sb.crew.length){
+    list = `<div class="crew">${sb.crew.map((m, i) => { const me = m.user_id === state.share.uid; return `
+      <div class="mate ${me ? 'me' : ''}"><span class="pos">${i + 1}</span>
+        <div class="who"><span class="nm">${esc(m.nombre)}${me ? '<span class="chip">Tú</span>' : ''}</span>
+          <div class="bar"><span style="width:${Math.min(100, +m.porcentaje)}%"></span></div>
+          <span class="meta">${m.sesiones} completadas · ${n2(Math.round(+m.km * 10) / 10)} km · ${ago(m.actualizado)}</span></div>
+        <span class="pct num">${n2(Math.round(+m.porcentaje))}%</span></div>`; }).join('')}</div>`;
+  } else if (sb.crewErr){ list = `<div class="empty">${esc(sb.crewErr)}</div>`; }
+  else { list = `<div class="empty">${sb.loading || !sb.crew ? 'Cargando la grupeta…' : 'Aún no hay nadie más compartiendo.'}</div>`; }
+  return header() + `
+    <section class="section">
+      <div class="sec-head"><h2 class="sec-title">Grupeta</h2><button class="btn small ghost" id="crewReload">Actualizar</button></div>
+      ${list}
+      <p class="note" style="margin:0">${SHARE_NOTE}</p>
+      ${sb.lost ? `<div class="card"><p class="note" style="margin:0">Este móvil ya no puede actualizar tu fila de la Grupeta (pasa si restauras una copia antigua o en otro móvil). Puedes volver a unirte; tu fila antigua puede quedar repetida.</p><div><button class="btn small" id="shareFresh">Volver a unirme</button></div></div>` : ''}
+      <div><button class="btn danger small" id="shareOff">${sb.offArmed ? 'Pulsa otra vez: se borrarán tus datos de la Grupeta' : 'Volver al modo anónimo'}</button></div>
+    </section>`;
+}
+function bindGrupeta(){
+  const on = document.getElementById('shareOn');
+  if (on) on.onclick = () => { on.disabled = true; startSharing(); };
+  const fr = document.getElementById('shareFresh');
+  if (fr) fr.onclick = () => { fr.disabled = true; startSharing(true); };
+  const rl = document.getElementById('crewReload');
+  if (rl) rl.onclick = () => { syncNow(); loadCrew(); render(); };
+  const off = document.getElementById('shareOff');
+  if (off) off.onclick = async () => {
+    /* la confirmación se guarda fuera del botón: la lista puede refrescarse entre los dos toques */
+    if (!sb.offArmed){ sb.offArmed = true; off.textContent = 'Pulsa otra vez: se borrarán tus datos de la Grupeta'; return; }
+    off.disabled = true; const ok = await stopSharing(); sb.offArmed = false; if (!ok) render();
+  };
+}
+function askShare(){
+  if (!state.name || state.share.asked || sb.askedNow || document.getElementById('scrim')) return;
+  sb.askedNow = true; /* una vez por apertura hasta que responda */
+  showSheet(`
+    <div class="sheet-h"><div><div class="label">Novedad</div><h2>¿Te unes a la Grupeta?</h2></div></div>
+    <div class="share-q">
+      <p style="margin:0">Puedes compartir tus avances con el resto de personas que usan Coach Gon y ver los suyos en la nueva pestaña Grupeta.</p>
+      <ul><li>Se comparte: tu nombre, el % del plan, sesiones completadas y km.</li><li>No se comparte: RPE, tiempos, notas ni actividades extra.</li><li>Tus registros no cambian, compartas o no.</li><li>Puedes cambiar de opinión cuando quieras desde la pestaña Grupeta.</li></ul>
+      <div class="actions"><button class="btn ghost" id="qAnon">Seguir anónimo</button><button class="btn primary" id="qShare">Compartir</button></div>
+    </div>`, () => {
+      document.getElementById('qAnon').onclick = () => { state.share.asked = true; persistLocal(); closeSheet(); toast('Sigues en modo anónimo'); };
+      document.getElementById('qShare').onclick = () => { closeSheet(); startSharing(); };
+    });
+}
+
 /* ---------- Copias de seguridad ---------- */
 function restoreFrom(txt){
   let obj; try { obj = JSON.parse(txt); } catch(e){ return 'Eso no es una copia válida. Asegúrate de copiarla entera, incluidas las llaves { }.'; }
@@ -495,8 +673,10 @@ function render(){
   if (!state.name){ tabs.hidden = true; $app.innerHTML = viewWelcome(); bindWelcome(); return; }
   tabs.hidden = false;
   document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
-  $app.innerHTML = ({hoy:viewHoy, plan:viewPlan, dorsal:viewDorsal})[tab]();
+  $app.innerHTML = ({hoy:viewHoy, plan:viewPlan, grupeta:viewGrupeta, dorsal:viewDorsal})[tab]();
   if (tab === 'dorsal') bindDorsal();
+  if (tab === 'grupeta') bindGrupeta();
+  askShare();
 }
 function bindWelcome(){
   const go = () => { const v = document.getElementById('welName').value.trim(); if (!v){ document.getElementById('welName').focus(); return; } state.name = v; save(); };
@@ -535,7 +715,7 @@ function bindDorsal(){
   const rs = document.getElementById('resetBtn');
   rs.onclick = () => {
     if (rs.dataset.armed !== '1'){ rs.dataset.armed = '1'; rs.textContent = 'Pulsa otra vez para borrar'; return; }
-    const name = state.name; state = defaultState(); state.name = name; save(); toast('Datos borrados');
+    const name = state.name, share = state.share; state = defaultState(); state.name = name; state.share = share; save(); toast('Datos borrados');
   };
 }
 
@@ -790,12 +970,13 @@ if ('serviceWorker' in navigator){
       document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
     } catch(e) {}
   });
-  let reloading = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloading){ reloading = true; location.reload(); } });
+  let reloading = false; const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController && !reloading){ reloading = true; location.reload(); } });
 }
 
 render();
 persistStorage();
+if (state.share.enabled) syncNow();
 </script>
 </body>
 </html>
