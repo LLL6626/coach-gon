@@ -12,7 +12,7 @@
     <circle cx="118" cy="394" r="14"/><circle cx="394" cy="394" r="14"/>
   </g>
   <g transform="translate(256 262) scale(5.6) translate(-30.5 -30)" fill="none" stroke="#2B1810" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="38" cy="13" r="4.6" fill="#2B1810" stroke="none"/>
+    <path d="M41.84 8.52 A5.2 5.2 0 1 0 43.70 12.50 L39.28 12.50" stroke-width="3.2"/>
     <path d="M35 20 L29 35"/>
     <path d="M34 22 L41 28 L47 25"/>
     <path d="M33 22 L25 25 L21 31"/>
