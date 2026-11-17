@@ -19,7 +19,7 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
-      keys.filter(k => k !== VERSION && k !== FONTS).map(k => caches.delete(k))
+      keys.filter(k => k.startsWith('entrenador-gon-') && k !== VERSION && k !== FONTS).map(k => caches.delete(k))  /* solo las suyas: no tocar otras apps del mismo dominio */
     )).then(() => self.clients.claim())
   );
 });
