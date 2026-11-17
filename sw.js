@@ -1,6 +1,6 @@
 /* Entrenador Gon: guarda la app para que funcione sin conexión.
    Al publicar una versión nueva, cambia VERSION para que los móviles la descarguen. */
-const VERSION = 'entrenador-gon-v1.1';
+const VERSION = 'entrenador-gon-v1.2';
 const APP_FILES = [
   './',
   './index.html',

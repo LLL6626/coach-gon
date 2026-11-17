@@ -279,7 +279,7 @@ function defaultState(){ return {name:'', weekPlan:{}, logs:{}, extras:[], updat
 function normalize(s){ s = Object.assign(defaultState(), s); s.share = Object.assign(defaultState().share, s.share || {}); s.extras = (s.extras || []).map(e => Object.assign({status:'done'}, e)); return s; }
 let state = defaultState();
 try { const raw = localStorage.getItem(LS_KEY); if (raw) state = normalize(JSON.parse(raw)); } catch(e) {}
-const APP_VERSION = '1.1';
+const APP_VERSION = '1.2';
 
 function persistLocal(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e) {} }
 function save(){
@@ -328,9 +328,43 @@ async function sbOpenSession(){
 function identityLost(e){ if (e && e.lost){ sb.lost = true; if (tab === 'grupeta') render(); } }
 const auth = () => ({Authorization:'Bearer ' + sb.access});
 
+/* ---------- Estimación de tiempo y km de cada sesión ----------
+   Si una sesión completada no tiene km o tiempo apuntados, se usa lo esperado según el plan
+   (tiempo de cada bloque al ritmo medio de su rango). No se guarda: se calcula al mostrar. */
+function paceSecs(p){ const [m, s] = p.split(':').map(Number); return m * 60 + s; }
+function midV(v){ return Array.isArray(v) ? (v[0] + v[1]) / 2 : v; }
+function blockEst(b){
+  if (b.kind === 'repeat'){
+    let t = 0, k = 0;
+    [b.work, b.rest].forEach(x => { if (x){ const e = blockEst(x); t += e.secs * b.times; k += e.km * b.times; } });
+    return {secs:t, km:k};
+  }
+  const p = b.pace || (b.zone ? PLAN.zones[b.zone].pace : ['4:10', '4:30']);
+  const pc = (paceSecs(p[0]) + paceSecs(p[1])) / 2, v = midV(b.dur.value);
+  if (b.dur.unit === 'min') return {secs:v * 60, km:v * 60 / pc};
+  if (b.dur.unit === 's') return {secs:v, km:v / pc};
+  const km = b.dur.unit === 'km' ? v : v / 1000;
+  return {secs:km * pc, km};
+}
+const estCache = new Map();
+function estimate(s){
+  if (!estCache.has(s)){ let secs = 0, km = 0; s.blocks.forEach(b => { const e = blockEst(b); secs += e.secs; km += e.km; }); estCache.set(s, {secs:Math.round(secs), km:Math.round(km * 10) / 10}); }
+  return estCache.get(s);
+}
+/* km y tiempo que cuentan: lo apuntado manda; lo que falte se estima */
+function effective(l, s){
+  if (!l || l.status !== 'done') return {km:0, secs:0, estKm:false, estSecs:false};
+  const e = estimate(s), pace = e.secs / e.km;
+  const km = +l.km || 0, secs = +l.secs || 0;
+  if (km && secs) return {km, secs, estKm:false, estSecs:false};
+  if (km) return {km, secs:Math.round(km * pace), estKm:false, estSecs:true};
+  if (secs) return {km:Math.round(secs / pace * 10) / 10, secs, estKm:true, estSecs:false};
+  return {km:e.km, secs:e.secs, estKm:true, estSecs:true};
+}
+
 function progress(){
   let total = 0, done = 0, km = 0;
-  for (let n = 1; n <= 20; n++) sessionsOf(n).forEach(s => { total++; const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += +l.km || 0; } });
+  for (let n = 1; n <= 20; n++) sessionsOf(n).forEach(s => { total++; const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += effective(l, s).km; } });
   return {pct: total ? Math.round(done / total * 1000) / 10 : 0, done, km: Math.round(km * 10) / 10};
 }
 async function pushShare(){
@@ -531,7 +565,7 @@ function range(a, b){ const r = []; for (let i = a; i <= b; i++) r.push(i); retu
 function viewPlan(){
   const wk = currentWeek();
   let km = 0, done = 0;
-  range(1, 20).forEach(n => sessionsOf(n).forEach(s => { const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += +l.km || 0; } }));
+  range(1, 20).forEach(n => sessionsOf(n).forEach(s => { const l = logOf(n, s); if (l && l.status === 'done'){ done++; km += effective(l, s).km; } }));
   return header() + `
     <div class="totals"><span><b class="num">${n2(Math.round(km * 10) / 10)}</b>km</span><span><b class="num">${done}</b>completadas</span></div>
     ` + PLAN.phases.map(ph => `
@@ -759,7 +793,7 @@ function openSession(n, day){
   showSheet(`
     <div class="sheet-h"><div><div class="label">Semana ${n} · Día ${s.day}</div><h2>${esc(s.title)}</h2></div>
       <div class="tools"><button class="x" data-legend="1" aria-label="Ver leyenda">i</button><button class="x" aria-label="Cerrar">✕</button></div></div>
-    ${l ? `<div>${l.status === 'done' ? '<span class="chip ok">Completada</span>' : '<span class="chip skip">Saltada</span>'} <span class="muted" style="font-size:13.5px">${fmtShort(l.date)}${l.km ? ' · ' + n2(l.km) + ' km' : ''}${l.secs ? ' · ' + fmtTime(l.secs) : ''}${l.km && l.secs ? ' · ' + fmtPaceSec(l.secs / l.km) : ''}${l.rpe ? ' · RPE ' + l.rpe : ''}</span></div>` : ''}
+    ${l ? `<div>${l.status === 'done' ? '<span class="chip ok">Completada</span>' : '<span class="chip skip">Saltada</span>'} <span class="muted" style="font-size:13.5px">${fmtShort(l.date)}${l.status === 'done' ? (() => { const f = effective(l, s); return ' · ' + (f.estKm ? '≈ ' : '') + n2(f.km) + ' km · ' + (f.estSecs ? '≈ ' : '') + fmtTime(f.secs) + (f.estKm || f.estSecs ? '' : ' · ' + fmtPaceSec(f.secs / f.km)); })() : ''}${l.rpe ? ' · RPE ' + l.rpe : ''}</span></div>` : ''}
     <div class="blocks">${blocksHTML(s.blocks)}</div>
     <details class="orig"><summary>Ver texto del plan</summary><p>${esc(s.text)}</p></details>
     <div class="actions">
@@ -785,6 +819,7 @@ function openLog(n, s, prefillSecs){
         <input class="input num" id="lgM" inputmode="numeric" placeholder="min" aria-label="Minutos" value="${secs ? m : ''}">
         <input class="input num" id="lgS" inputmode="numeric" placeholder="s" aria-label="Segundos" value="${secs ? sc : ''}"></div></div>
       <div class="calc" id="lgPace"></div>
+      <p class="note" style="margin:0">Si lo dejas vacío, contará lo esperado: ≈ ${n2(estimate(s).km)} km y ≈ ${fmtTime(estimate(s).secs)}.</p>
       <div class="field"><label for="lgRpe">Esfuerzo (RPE): <span class="rpe-out" id="lgRpeOut">${l.rpe || '–'}</span></label>
         <input type="range" id="lgRpe" min="0" max="10" step="1" value="${l.rpe || 0}"></div>
     </div>
